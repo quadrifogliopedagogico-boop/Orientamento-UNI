@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Questionario di orientamento universitario: esplora attitudini, interessi e stili di apprendimento per trovare il percorso accademico più adatto a te.">
+<meta property="og:title" content="Orientamento Universitario — Questionario di Esplorazione">
+<meta property="og:description" content="9 sezioni di questionari autovalutativi per esplorare attitudini, interessi disciplinari e stile di apprendimento in vista della scelta universitaria.">
+<meta property="og:type" content="website">
+<title>Orientamento Universitario</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#fafbfd;--bg-warm:#f8f6f3;--bg-card:#fff;--bg-input:#f4f5f7;--accent:#4f46e5;--accent-light:#818cf8;--accent-bg:rgba(79,70,229,.06);--green:#059669;--green-light:#d1fae5;--amber:#d97706;--rose:#e11d48;--cyan:#0891b2;--violet:#7c3aed;--text:#1e293b;--text-sec:#64748b;--text-mut:#94a3b8;--border:#e2e8f0;--border-light:#f1f5f9;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow:0 4px 16px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.08);--radius:16px;--radius-sm:10px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;right:0;height:280px;background:linear-gradient(180deg,rgba(79,70,229,.03) 0%,rgba(8,145,178,.015) 40%,transparent 100%);pointer-events:none;z-index:0}
+.dot-bg{position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle,rgba(79,70,229,.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;z-index:0}
+#sticky-header{position:fixed;top:0;left:0;right:0;z-index:102;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(226,232,240,.7);padding:14px 24px 10px;transition:all .3s;display:none;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+#sticky-header.compact{padding:10px 24px 8px}
+#sticky-header .ht{font-family:'Playfair Display',serif;font-size:1.15em;color:var(--accent);line-height:1.2}
+#sticky-header.compact .ht{font-size:1.05em}
+#sticky-header .hs{font-size:.78em;color:var(--text-sec);margin-top:2px}
+#sticky-header.compact .hs{font-size:.72em}
+#sticky-header .hi{font-size:.72em;color:var(--text-mut);margin-top:3px;line-height:1.4;max-height:3.0em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-overflow:ellipsis;transition:max-height .3s}
+#sticky-header.compact .hi{max-height:2.8em;font-size:.68em;-webkit-line-clamp:2}
+#progress-container{position:fixed;top:0;left:0;right:0;z-index:101;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:0;display:none}
+#pbo{height:14px;background:var(--border-light);width:100%;border-radius:0 0 7px 7px;overflow:hidden;position:relative;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+#pbi{height:100%;width:0%;background:linear-gradient(90deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#8b5cf6);transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 7px 7px 0;position:relative;box-shadow:0 2px 8px rgba(79,70,229,.25),inset 0 1px 0 rgba(255,255,255,.3);overflow:hidden}
+#pbi::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:shimmer 2.2s infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:100%}}
+#pbi-pct{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:.6em;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);white-space:nowrap;z-index:2}
+#sticky-footer{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-top:1px solid var(--border);padding:10px 24px;display:none}
+#sticky-footer .sf-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;max-width:820px;margin:0 auto}
+#sticky-footer .sf-cnt{font-family:'JetBrains Mono',monospace;font-size:.78em;color:var(--text-sec);white-space:nowrap}
+.ctn{max-width:820px;margin:0 auto;padding:20px;padding-bottom:80px;position:relative;z-index:1}
+.ws{text-align:center;padding:40px 20px;animation:fu .7s ease}
+.ws h1{font-family:'Playfair Display',serif;font-size:2.4em;color:var(--text);margin-bottom:8px;line-height:1.15}
+.ws h1 span{color:var(--accent)}
+.ws .ci{font-size:3em;display:block;margin-bottom:14px;animation:pu 2.5s infinite}
+@keyframes pu{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.ws p{color:var(--text-sec);font-size:1.02em;line-height:1.7;max-width:560px;margin:0 auto 22px}
+.uf{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:480px;margin:0 auto 22px;box-shadow:var(--shadow-sm)}
+.uf label{display:block;font-size:.75em;color:var(--text-mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.uf input,.uf select{width:100%;padding:10px 13px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:1em;margin-bottom:13px;outline:none;transition:border .3s}
+.uf input:focus,.uf select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 26px;border:none;border-radius:var(--radius-sm);font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:.92em;cursor:pointer;transition:all .25s}
+.btn-p{background:var(--accent);color:#fff;box-shadow:0 2px 10px rgba(79,70,229,.2)}.btn-p:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(79,70,229,.3)}
+.btn-s{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}.btn-s:hover{border-color:var(--accent);background:var(--accent-bg)}
+.btn-sm{padding:7px 14px;font-size:.8em}
+.btn-g{background:var(--green);color:#fff}.btn-g:hover{box-shadow:0 4px 14px rgba(5,150,105,.3)}
+.hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0}
+.qsc{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .3s;position:relative;box-shadow:var(--shadow-sm)}
+.qsc:hover{transform:translateY(-3px);border-color:var(--accent-light);box-shadow:var(--shadow)}
+.qsc .qi{font-size:1.6em;display:block;margin-bottom:6px}.qsc .qn{font-weight:700;font-size:.85em;margin-bottom:2px}.qsc .qd{font-size:.72em;color:var(--text-sec);line-height:1.4}
+.qsc .qb{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62em;font-weight:800}
+.qb.ok{background:var(--green-light);color:var(--green)}.qb.no{background:var(--bg-input);color:var(--text-mut)}
+.qsc.done{border-color:var(--green);background:linear-gradient(135deg,#f0fdf4,#f0f9ff)}.qsc.done .qn{color:var(--green)}
+.blk-label{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mut);margin:18px 0 6px;text-align:left}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.qsec{animation:fu .4s ease}
+.qc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:10px;transition:all .4s;position:relative;overflow:hidden;box-shadow:var(--shadow-sm)}
+.qc::after{content:'';position:absolute;top:0;left:0;width:0;height:100%;transition:width .5s;z-index:0}
+.qc.ans::after{width:100%;background:linear-gradient(135deg,rgba(219,234,254,.5),rgba(209,250,229,.3))}
+.qc.ans{border-color:var(--accent-light)}.qc>*{position:relative;z-index:1}
+.qc .qnum{font-family:'JetBrains Mono',monospace;font-size:.68em;color:var(--accent);font-weight:600;margin-bottom:4px}
+.qc.ans .qnum::after{content:' \2713';color:var(--green);font-weight:800;animation:pi .3s ease}
+@keyframes pi{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.qc .qt{font-size:.95em;line-height:1.55;margin-bottom:10px}
+.ls{display:flex;gap:5px;flex-wrap:wrap}
+.lo{flex:1;min-width:60px;text-align:center;padding:8px 4px;background:var(--bg-input);border:2px solid transparent;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;user-select:none}
+.lo:hover{border-color:var(--accent-light);background:#eef2ff;transform:translateY(-1px)}
+.lo.sel{border-color:var(--accent);background:linear-gradient(135deg,#eef2ff,#ede9fe)}
+.lo .lv{font-family:'JetBrains Mono',monospace;font-size:1.2em;font-weight:700;color:var(--accent);display:block;margin-bottom:1px}
+.lo .ll{font-size:.58em;color:var(--text-sec);text-transform:uppercase;letter-spacing:.3px;font-weight:700}
+.tb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;padding:10px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.tb .btn{font-size:.76em;padding:6px 12px}
+.rp{animation:fu .5s ease}
+.rc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+.rc h3{font-family:'Playfair Display',serif;font-size:1.12em;margin-bottom:10px;color:var(--accent)}
+.sbc{margin-bottom:10px}.sbl{display:flex;justify-content:space-between;margin-bottom:3px;font-size:.8em}
+.sbl span:first-child{color:var(--text);font-weight:600}.sbl span:last-child{color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:600}
+.sb{height:8px;background:var(--bg-input);border-radius:4px;overflow:hidden}
+.sbf{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+.cc{position:relative;height:280px;margin:14px 0}
+.nt{font-size:.9em;line-height:1.85;color:var(--text-sec);padding:20px;background:var(--bg-warm);border-radius:var(--radius-sm);border-left:4px solid var(--accent)}
+.mo{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.3);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.mo.act{display:flex}
+.mc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);max-width:700px;width:100%;max-height:80vh;overflow-y:auto;padding:24px;box-shadow:var(--shadow-lg)}
+.mc h2{font-family:'Playfair Display',serif;margin-bottom:10px;color:var(--accent)}
+.mc textarea{width:100%;min-height:280px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.75em;padding:12px;resize:vertical;outline:none}
+.st{position:fixed;bottom:70px;right:18px;z-index:200;background:var(--bg-card);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1em;transition:all .3s;box-shadow:var(--shadow)}
+.st:hover{border-color:var(--accent);transform:scale(1.08)}
+.prompt-box{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;position:relative}
+.prompt-box pre{font-size:.75em;white-space:pre-wrap;line-height:1.6;color:var(--text-sec);font-family:'JetBrains Mono',monospace}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:10px 22px;border-radius:var(--radius-sm);font-size:.84em;font-weight:600;opacity:0;transition:all .4s;z-index:500;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.ph{display:none;text-align:center;margin-bottom:24px;padding-bottom:14px;border-bottom:3px solid var(--accent)}.ph h1{color:var(--accent);font-family:'Playfair Display',serif;font-size:1.6em}.ph p{color:var(--text-sec);margin-top:3px}
+.nb{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);position:sticky;bottom:10px;z-index:10}
+.nc{font-family:'JetBrains Mono',monospace;font-size:.82em;color:var(--text-sec);font-weight:600}
+#sticky-header .sn{display:none;align-items:center;gap:10px;margin-top:8px}
+@media print{body{background:#fff!important}body::before,.dot-bg{display:none!important}.tb,.st,#sticky-header,#sticky-footer,.no-print,.toast,.nb{display:none!important}.ctn{max-width:100%;padding:8px}.rc{break-inside:avoid;box-shadow:none!important}.ph{display:block!important}.cc{height:250px!important}}
+@media(max-width:600px){.ws h1{font-size:1.5em}.ls{flex-direction:column}.lo{min-width:unset}.hub-grid{grid-template-columns:1fr}.ctn{padding:10px;padding-bottom:80px}#sticky-footer .sf-bar{flex-wrap:wrap;justify-content:center}}
+</style>
+</head>
+<body>
+<div class="dot-bg"></div>
+<div class="st" id="sndT" title="Audio on/off" onclick="tglSnd()">&#128266;</div>
+<div id="toast-el" class="toast"></div>
+<div id="sticky-header"><div class="ht" id="hT"></div><div class="hs" id="hS"></div><div class="hi" id="hI"></div><div class="sn" id="stickyNav"></div></div>
+<div id="progress-container"><div id="pbo"><div id="pbi"><span id="pbi-pct">0%</span></div></div></div>
+<div class="ctn" id="app"></div>
+<div id="sticky-footer" style="display:none"></div>
+<div class="mo" id="opM"><div class="mc"><h2>&#128203; Report Operatore</h2><p style="color:var(--text-sec);margin-bottom:10px;font-size:.84em">Testo strutturato per analisi IA</p><textarea id="opT" readonly></textarea><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-p btn-sm" onclick="cpOp()">&#128203; Copia</button><button class="btn btn-g btn-sm" onclick="exMD()">Markdown</button><button class="btn btn-s btn-sm" onclick="clMo()">Chiudi</button></div></div></div>
+<input type="file" id="impI" accept=".json" onchange="hImp(event)" style="display:none">
+<script>
+/* ===== QUESTIONNAIRE DATA ===== */
+const Q=[
+
+/* ---- BLOCCO 1: STRATEGIE COMPORTAMENTALI ED EMOTIVE ---- */
+{id:'fronteggiamento',title:'Modalità di Fronteggiamento',subtitle:'Come affronti le sfide?',instruction:'Leggi ogni affermazione e indica quanto ti corrisponde. Non ci sono risposte giuste o sbagliate.',icon:'🛡️',
+scale:[{v:0,l:'Mai'},{v:1,l:'Raramente'},{v:2,l:'A volte'},{v:3,l:'Spesso'},{v:4,l:'Sempre'}],
+items:[
+{n:1,t:'Quando ho un problema chiedo aiuto ad altri',a:'Ricerca di aiuto'},
+{n:2,t:'Raccolgo tutte le informazioni possibili prima di decidere',a:'Progettualità'},
+{n:3,t:'Considero tutti i modi per affrontare un problema',a:'Progettualità'},
+{n:4,t:'Prima di fare qualcosa di importante ascolto il parere degli altri',a:'Ricerca di aiuto'},
+{n:5,t:'Se sono preoccupato/a cerco qualcuno con cui parlare',a:'Ricerca di aiuto'},
+{n:6,t:'Immagino i passaggi necessari per risolvere un problema',a:'Progettualità'},
+{n:7,t:'Se ho dei dubbi chiedo il parere ad altre persone',a:'Ricerca di aiuto'},
+{n:8,t:'Stabilisco le priorità quando ho molte decisioni da prendere',a:'Progettualità'},
+{n:9,t:'Cerco il confronto con chi ha già affrontato situazioni simili',a:'Ricerca di aiuto'},
+{n:10,t:'Mi creo un piano B prima di agire',a:'Progettualità'},
+{n:11,t:'Quando ho bisogno di supporto, so a chi rivolgermi',a:'Ricerca di aiuto'},
+{n:12,t:'Affronto i problemi passo dopo passo',a:'Progettualità'}],
+areas:{
+'Ricerca di aiuto':{d:'Tendenza a coinvolgere altri nel fronteggiamento.',i:[1,4,5,7,9,11],m:24},
+'Progettualità':{d:'Capacità di pianificare strategie autonome.',i:[2,3,6,8,10,12],m:24}}},
+
+{id:'coping',title:'Stili di Coping',subtitle:'Quali strategie usi sotto pressione?',instruction:'Indica quanto ciascuna affermazione descrive il tuo comportamento abituale nelle situazioni difficili.',icon:'⚙️',
+scale:[{v:0,l:'Mai'},{v:1,l:'Raramente'},{v:2,l:'A volte'},{v:3,l:'Spesso'},{v:4,l:'Sempre'}],
+items:[
+{n:1,t:'Cerco attivamente informazioni per risolvere un problema',a:'Attivo'},
+{n:2,t:'Tendo a rimandare sperando che si risolva da sola',a:'Evitante',r:true},
+{n:3,t:'Cerco attività rilassanti quando sono stressato/a',a:'Emotivo'},
+{n:4,t:'Cambio strategia se la prima non funziona',a:'Attivo'},
+{n:5,t:'Evito situazioni dove potrei fallire',a:'Evitante',r:true},
+{n:6,t:'Vedo le difficoltà da una prospettiva diversa',a:'Emotivo'},
+{n:7,t:'Mi attivo subito di fronte a un problema',a:'Attivo'},
+{n:8,t:'Preferisco isolarmi piuttosto che chiedere aiuto',a:'Evitante',r:true},
+{n:9,t:'Esprimo le mie emozioni in modo costruttivo',a:'Emotivo'},
+{n:10,t:'Analizzo le cause prima di agire',a:'Attivo'},
+{n:11,t:'Rinuncio facilmente quando le cose si complicano',a:'Evitante',r:true},
+{n:12,t:'Mi concedo pause per ricaricare nei momenti difficili',a:'Emotivo'}],
+areas:{
+'Attivo':{d:'Affrontamento diretto e orientato al problema.',i:[1,4,7,10],m:16},
+'Evitante':{d:'Tendenza a sottrarsi alle difficoltà.',i:[2,5,8,11],m:16,neg:true},
+'Emotivo':{d:'Gestione consapevole delle emozioni.',i:[3,6,9,12],m:16}}},
+
+{id:'locus',title:'Locus of Control',subtitle:'Chi tiene il timone della tua vita?',instruction:'Esprimi il tuo grado di accordo con ciascuna affermazione.',icon:'🧭',
+scale:[{v:0,l:'Falso'},{v:1,l:'Poco vero'},{v:2,l:'Incerto'},{v:3,l:'Vero'},{v:4,l:'Molto vero'}],
+items:[
+{n:1,t:'Ciò che accade dipende dalla mia determinazione personale',a:'Interno'},
+{n:2,t:'Trovare un buon percorso è più questione di fortuna che di impegno',a:'Esterno'},
+{n:3,t:'Per avere successo occorre valorizzare le proprie competenze',a:'Interno'},
+{n:4,t:'Il successo negli studi dipende soprattutto dalla fortuna',a:'Esterno'},
+{n:5,t:'La flessibilità e la capacità di adattamento sono essenziali per il mio futuro',a:'Interno'},
+{n:6,t:'Ottenere risultati dipende principalmente dalle conoscenze e dagli aiuti esterni',a:'Esterno'},
+{n:7,t:'Le mie scelte fanno la differenza nel mio percorso',a:'Interno'},
+{n:8,t:'Le opportunità arrivano per caso, non per merito',a:'Esterno'},
+{n:9,t:'Sono io il principale artefice del mio futuro',a:'Interno'},
+{n:10,t:'Chi conosci conta più di ciò che sai',a:'Esterno'}],
+areas:{
+'Interno':{d:'Convinzione di essere artefice dei propri risultati.',i:[1,3,5,7,9],m:20},
+'Esterno':{d:'Attribuzione dei risultati a fattori esterni.',i:[2,4,6,8,10],m:20}}},
+
+/* ---- BLOCCO 2: PROFILO COGNITIVO E COMPETENZE ---- */
+{id:'cognitivi',title:'Orientamenti Cognitivi',subtitle:'Quanto questi comportamenti ti descrivono?',instruction:'Leggi ogni affermazione e indica con quale frequenza questo comportamento ti rappresenta.',icon:'🧠',
+scale:[{v:0,l:'Per niente'},{v:1,l:'Poco'},{v:2,l:'Abbastanza'},{v:3,l:'Molto'},{v:4,l:'Moltissimo'}],
+items:[
+{n:1,t:'Usi mappe, schemi o disegni per orientarti o per ricordare informazioni.',a:'Visuo-Spaziale'},
+{n:2,t:'Leggi, scrivi o giochi con le parole nel tempo libero.',a:'Linguistica'},
+{n:3,t:'Ti accorgi dello stato d\'animo degli altri anche senza che lo dicano.',a:'Interpersonale'},
+{n:4,t:'Riconosci melodie, ritmi o variazioni musicali con facilità.',a:'Musicale'},
+{n:5,t:'Impari più facilmente quando puoi fare qualcosa con le mani o muoverti.',a:'Cinestetica'},
+{n:6,t:'Ti fermi a riflettere su di te, sui tuoi valori e su come stai.',a:'Intrapersonale'},
+{n:7,t:'Affronti rompicapi, puzzle o problemi logici per piacere.',a:'Logico-Matematica'},
+{n:8,t:'Cerchi occasioni per stare a contatto con la natura o con gli animali.',a:'Naturalistica'},
+{n:9,t:'Ti capita di fermarti a chiederti il senso di quello che fai o del perché esisti.',a:'Filosofico-Esistenziale'},
+{n:10,t:'Ricordi facilmente immagini, volti o scenari che hai visto.',a:'Visuo-Spaziale'},
+{n:11,t:'Quando devi spiegare qualcosa, usi le parole più che gesti o disegni.',a:'Linguistica'},
+{n:12,t:'Gestisci le dinamiche di gruppo senza che ti crei tensione.',a:'Interpersonale'},
+{n:13,t:'Suoni uno strumento, canti o hai praticato musica con continuità.',a:'Musicale'},
+{n:14,t:'Controlli bene il tuo corpo in attività che richiedono coordinazione.',a:'Cinestetica'},
+{n:15,t:'Sai riconoscere con chiarezza in cosa sei bravo/a e dove invece fatichi.',a:'Intrapersonale'},
+{n:16,t:'Usi numeri, dati o statistiche per capire o spiegare situazioni.',a:'Logico-Matematica'},
+{n:17,t:'Noti cambiamenti nell\'ambiente naturale che altri tendono a ignorare.',a:'Naturalistica'},
+{n:18,t:'Discuti o approfondisci temi di etica, giustizia o diritti.',a:'Filosofico-Esistenziale'},
+{n:19,t:'Immagini mentalmente oggetti, spazi o situazioni prima di agire.',a:'Visuo-Spaziale'},
+{n:20,t:'Racconti storie o spieghi concetti agli altri trovando le parole giuste.',a:'Linguistica'},
+{n:21,t:'Quando c\'è conflitto in un gruppo, cerchi attivamente una soluzione condivisa.',a:'Interpersonale'},
+{n:22,t:'La musica cambia concretamente il tuo umore o la tua concentrazione.',a:'Musicale'},
+{n:23,t:'Hai bisogno di muoverti o fare qualcosa con le mani per mantenere la concentrazione.',a:'Cinestetica'},
+{n:24,t:'Tieni un diario, scrivi note su di te o ti prendi tempo per riflettere su come stai.',a:'Intrapersonale'},
+{n:25,t:'Cerchi schemi, regole o strutture logiche nei fenomeni che osservi.',a:'Logico-Matematica'},
+{n:26,t:'Classifichi, organizzi o studia elementi del mondo naturale per interesse.',a:'Naturalistica'},
+{n:27,t:'Ti interroghi sul significato profondo degli eventi che ti capitano.',a:'Filosofico-Esistenziale'},
+{n:28,t:'Quando devi seguire istruzioni, preferisci schemi o diagrammi al testo scritto.',a:'Visuo-Spaziale'},
+{n:29,t:'Impari o usi lingue straniere con una certa facilità.',a:'Linguistica'},
+{n:30,t:'Le persone ti cercano spontaneamente per consigli o supporto.',a:'Interpersonale'},
+{n:31,t:'Distingui sfumature sonore — toni, accordi, ritmi — anche senza formazione musicale.',a:'Musicale'},
+{n:32,t:'Impari più efficacemente con simulazioni, role-play o esperienze pratiche dirette.',a:'Cinestetica'},
+{n:33,t:'Riesci a motivarti e a gestire le tue emozioni anche nei momenti difficili.',a:'Intrapersonale'},
+{n:34,t:'Formuli ipotesi e le verifichi raccogliendo dati o osservazioni.',a:'Logico-Matematica'},
+{n:35,t:'Esplori attivamente la diversità degli esseri viventi o degli ecosistemi.',a:'Naturalistica'},
+{n:36,t:'Cerchi conversazioni o letture sui valori fondamentali dell\'esistenza.',a:'Filosofico-Esistenziale'}],
+areas:{
+'Visuo-Spaziale':{d:'Pensare per immagini, orientamento spaziale',i:[1,10,19,28],m:16},
+'Linguistica':{d:'Abilità con parole, lettura, scrittura',i:[2,11,20,29],m:16},
+'Interpersonale':{d:'Comprendere e relazionarsi con gli altri',i:[3,12,21,30],m:16},
+'Musicale':{d:'Sensibilità a suoni, ritmi e melodie',i:[4,13,22,31],m:16},
+'Cinestetica':{d:'Apprendere facendo, coordinazione motoria',i:[5,14,23,32],m:16},
+'Intrapersonale':{d:'Consapevolezza profonda di sé',i:[6,15,24,33],m:16},
+'Logico-Matematica':{d:'Ragionamento logico-deduttivo e quantitativo',i:[7,16,25,34],m:16},
+'Naturalistica':{d:'Sensibilità verso natura e ambienti',i:[8,17,26,35],m:16},
+'Filosofico-Esistenziale':{d:'Riflessione su questioni profonde e valoriali',i:[9,18,27,36],m:16}}},
+
+{id:'softskills',title:'Soft Skills Universitarie',subtitle:'Competenze per il successo accademico',instruction:'Valuta il tuo livello attuale in ciascuna competenza. Rispondi in modo autentico.',icon:'💪',
+scale:[{v:0,l:'Per niente'},{v:1,l:'Poco'},{v:2,l:'Abbastanza'},{v:3,l:'Molto'},{v:4,l:'Pienamente'}],
+items:[
+{n:1,t:'Organizzo il mio studio in modo autonomo',a:'Autonomia'},
+{n:2,t:'Rispetto le scadenze e pianifico con anticipo',a:'Gestione tempo'},
+{n:3,t:'Se non supero un esame mi rialzo con determinazione',a:'Resilienza'},
+{n:4,t:'So cercare e valutare informazioni in modo efficace',a:'Ricerca info'},
+{n:5,t:'Collaboro bene nei lavori di gruppo',a:'Lavoro di gruppo'},
+{n:6,t:'Mi sento a mio agio nel parlare in pubblico',a:'Public speaking'},
+{n:7,t:'Analizzo le fonti criticamente prima di usarle',a:'Pensiero critico'},
+{n:8,t:'Mi adatto a nuovi metodi e contesti di studio',a:'Adattabilità'},
+{n:9,t:'Studio anche materie che non mi appassionano',a:'Autonomia'},
+{n:10,t:'Uso un sistema per tracciare gli impegni e le scadenze',a:'Gestione tempo'},
+{n:11,t:'Non mi scoraggio se i risultati non arrivano subito',a:'Resilienza'},
+{n:12,t:'Seleziono fonti affidabili distinguendole da quelle inattendibili',a:'Ricerca info'},
+{n:13,t:'Ascolto punti di vista diversi e integro idee altrui',a:'Lavoro di gruppo'},
+{n:14,t:'So preparare e condurre una presentazione strutturata',a:'Public speaking'},
+{n:15,t:'Metto in discussione le informazioni e cerco prove',a:'Pensiero critico'},
+{n:16,t:'Gestisco bene i cambiamenti improvvisi nel carico di studio',a:'Adattabilità'},
+{n:17,t:'Fisso le priorità giornaliere e le rispetto',a:'Autonomia'},
+{n:18,t:'Non procrastino anche se la scadenza è lontana',a:'Gestione tempo'},
+{n:19,t:'Gestisco l\'ansia da esame in modo efficace',a:'Resilienza'},
+{n:20,t:'So usare strumenti digitali per la ricerca e lo studio',a:'Ricerca info'},
+{n:21,t:'Gestisco i conflitti e le tensioni in un gruppo di lavoro',a:'Lavoro di gruppo'},
+{n:22,t:'Esprimo le idee in modo chiaro e strutturato',a:'Public speaking'},
+{n:23,t:'Formo le mie opinioni su basi razionali e verificabili',a:'Pensiero critico'},
+{n:24,t:'Mi trovo bene sia in presenza che in contesti online',a:'Adattabilità'},
+{n:25,t:'Prendo iniziativa nel mio percorso formativo',a:'Autonomia'},
+{n:26,t:'Suddivido compiti grandi in passi gestibili con scadenze',a:'Gestione tempo'},
+{n:27,t:'Considero le difficoltà come opportunità di crescita',a:'Resilienza'},
+{n:28,t:'So scrivere un testo argomentativo strutturato e documentato',a:'Ricerca info'},
+{n:29,t:'Coordino il lavoro in un progetto di gruppo condiviso',a:'Lavoro di gruppo'},
+{n:30,t:'Rispondo a domande inattese durante presentazioni',a:'Public speaking'},
+{n:31,t:'Distinguo fatti da opinioni e verifico le fonti',a:'Pensiero critico'},
+{n:32,t:'Mi adatto rapidamente a nuovi ambienti e interlocutori',a:'Adattabilità'}],
+areas:{
+'Autonomia':{d:'Organizzazione autonoma dello studio',i:[1,9,17,25],m:16},
+'Gestione tempo':{d:'Pianificazione e rispetto delle scadenze',i:[2,10,18,26],m:16},
+'Resilienza':{d:'Gestione di fallimenti e stress',i:[3,11,19,27],m:16},
+'Ricerca info':{d:'Cercare e valutare informazioni in modo critico',i:[4,12,20,28],m:16},
+'Lavoro di gruppo':{d:'Collaborazione efficace nei team',i:[5,13,21,29],m:16},
+'Public speaking':{d:'Comunicazione orale e presentazioni',i:[6,14,22,30],m:16},
+'Pensiero critico':{d:'Analisi critica e valutazione razionale',i:[7,15,23,31],m:16},
+'Adattabilità':{d:'Flessibilità verso nuovi contesti e metodi',i:[8,16,24,32],m:16}}},
+
+{id:'apprendimento',title:'Stili di Apprendimento',subtitle:'Come impara meglio la tua mente?',instruction:'Le seguenti affermazioni descrivono diversi modi di apprendere. Indica con quale frequenza ti riconosci in ciascun comportamento.',icon:'🧩',
+scale:[{v:0,l:'Mai'},{v:1,l:'Raramente'},{v:2,l:'Qualche volta'},{v:3,l:'Spesso'},{v:4,l:'Sempre'}],
+items:[
+{n:1,t:'Preferisco provare subito un esercizio piuttosto che ascoltare prima tutta la spiegazione',a:'Attivo'},
+{n:2,t:'Prima di rispondere a una domanda, ho bisogno di tempo per pensare',a:'Riflessivo'},
+{n:3,t:'Capisco meglio quando mi spiegano prima la teoria generale e poi gli esempi',a:'Teorico'},
+{n:4,t:'Voglio capire subito come posso usare quello che studio nella vita reale',a:'Pragmatico'},
+{n:5,t:'Imparo meglio quando posso sperimentare in prima persona, anche sbagliando',a:'Attivo'},
+{n:6,t:'Preferisco osservare come gli altri fanno qualcosa prima di provare io',a:'Riflessivo'},
+{n:7,t:'Mi piace collegare le informazioni in schemi logici e strutturati',a:'Teorico'},
+{n:8,t:'Preferisco esercizi concreti ai concetti astratti',a:'Pragmatico'},
+{n:9,t:'Mi annoio se devo stare fermo ad ascoltare per molto tempo senza fare niente',a:'Attivo'},
+{n:10,t:'Imparo meglio quando posso riflettere con calma su ciò che ho appreso',a:'Riflessivo'},
+{n:11,t:'Preferisco capire il perché profondo delle cose prima di passare alla pratica',a:'Teorico'},
+{n:12,t:'Imparo meglio quando vedo l\'applicazione pratica immediata di un concetto',a:'Pragmatico'},
+{n:13,t:'Preferisco laboratori e attività pratiche alle lezioni frontali',a:'Attivo'},
+{n:14,t:'Mi piace prendere appunti dettagliati e rileggermeli più volte',a:'Riflessivo'},
+{n:15,t:'Imparo meglio quando le informazioni sono organizzate in modelli o framework chiari',a:'Teorico'},
+{n:16,t:'Mi interessano le tecniche e i metodi che funzionano davvero, non solo le teorie',a:'Pragmatico'},
+{n:17,t:'Quando studio qualcosa di nuovo, ho bisogno di provarlo subito per capirlo davvero',a:'Attivo'},
+{n:18,t:'Preferisco analizzare un problema da più punti di vista prima di agire',a:'Riflessivo'},
+{n:19,t:'Mi piace trovare i principi generali che spiegano casi particolari',a:'Teorico'},
+{n:20,t:'Quando studio, mi chiedo sempre: a cosa mi serve questo nella pratica?',a:'Pragmatico'}],
+areas:{
+'Attivo':{d:'Impara facendo esperienza diretta e sperimentando',i:[1,5,9,13,17],m:20},
+'Riflessivo':{d:'Impara osservando, riflettendo e analizzando',i:[2,6,10,14,18],m:20},
+'Teorico':{d:'Impara da concetti astratti, modelli e principi',i:[3,7,11,15,19],m:20},
+'Pragmatico':{d:'Impara applicando nella pratica con obiettivi concreti',i:[4,8,12,16,20],m:20}}},
+
+/* ---- BLOCCO 3: STORIA, PASSIONI E INTERESSI ---- */
+{id:'storia',title:'Storia Formativa',subtitle:'Il tuo percorso scolastico',instruction:'Rispondi pensando alla tua esperienza scolastica concreta. Considera tutto il percorso, non solo gli ultimi mesi.',icon:'📚',
+scale:[{v:0,l:'Per niente'},{v:1,l:'Poco'},{v:2,l:'Abbastanza'},{v:3,l:'Molto'},{v:4,l:'Moltissimo'}],
+items:[
+{n:1,t:'Studio in modo costante durante tutto l\'anno scolastico',a:'Metodo di Studio'},
+{n:2,t:'Organizzo il mio studio in modo autonomo, senza bisogno di controlli esterni',a:'Metodo di Studio'},
+{n:3,t:'Uso schemi, riassunti o mappe concettuali per studiare',a:'Metodo di Studio'},
+{n:4,t:'So suddividere compiti complessi in passi gestibili con priorità',a:'Metodo di Studio'},
+{n:5,t:'Riesco a concentrarmi a lungo senza distrazioni rilevanti',a:'Metodo di Studio'},
+{n:6,t:'Ho avuto difficoltà significative con il carico di studio',a:'Barriere',r:true},
+{n:7,t:'Ho vissuto periodi prolungati di scarsa motivazione scolastica',a:'Barriere',r:true},
+{n:8,t:'Ho attraversato periodi di ansia o stress scolastico rilevante',a:'Barriere',r:true},
+{n:9,t:'Difficoltà relazionali (compagni, insegnanti) hanno ostacolato il mio percorso',a:'Barriere',r:true},
+{n:10,t:'Ho valutato o vissuto la possibilità di abbandonare o cambiare percorso scolastico',a:'Barriere',r:true},
+{n:11,t:'Ho ottenuto buoni risultati nelle materie scientifiche e matematiche',a:'Rendimento Scolastico'},
+{n:12,t:'Ho ottenuto buoni risultati nelle materie umanistiche e letterarie',a:'Rendimento Scolastico'},
+{n:13,t:'Le lingue straniere sono state un mio punto di forza',a:'Rendimento Scolastico'},
+{n:14,t:'Ho avuto buoni risultati nelle materie tecniche, pratiche o artistiche',a:'Rendimento Scolastico'},
+{n:15,t:'Il mio percorso mi ha fornito una preparazione solida per affrontare l\'università',a:'Rendimento Scolastico'},
+{n:16,t:'Ho partecipato a progetti o attività extracurriculari significative',a:'Esperienze Formative'},
+{n:17,t:'Ho ottenuto certificazioni aggiuntive (linguistiche, informatiche, professionali)',a:'Esperienze Formative'},
+{n:18,t:'Ho svolto esperienze di volontariato o lavoro durante il percorso scolastico',a:'Esperienze Formative'},
+{n:19,t:'Ho partecipato a competizioni, olimpiadi o concorsi scolastici',a:'Esperienze Formative'},
+{n:20,t:'Ho avuto esperienze formative all\'estero (scambi, soggiorni, programmi internazionali)',a:'Esperienze Formative'}],
+areas:{
+'Metodo di Studio':{d:'Qualità e autonomia del metodo di studio',i:[1,2,3,4,5],m:20},
+'Barriere':{d:'Difficoltà e ostacoli incontrati nel percorso',i:[6,7,8,9,10],m:20,neg:true},
+'Rendimento Scolastico':{d:'Rendimento nelle principali aree disciplinari',i:[11,12,13,14,15],m:20},
+'Esperienze Formative':{d:'Esperienze significative oltre il curriculo standard',i:[16,17,18,19,20],m:20}}},
+
+{id:'passioni_personali',title:'Passioni e Interessi Personali',subtitle:'Cosa ti piace davvero fare?',instruction:'Indica quanto ti interessano queste attività del tempo libero. Non pensare se servono per l\'università: vogliamo sapere cosa ti appassiona davvero nella vita.',icon:'❤️',
+scale:[{v:0,l:'Per niente'},{v:1,l:'Poco'},{v:2,l:'Abbastanza'},{v:3,l:'Molto'},{v:4,l:'Moltissimo'}],
+items:[
+{n:1,t:'Navigare in rete, programmare, esplorare nuove tecnologie e app',a:'Digitale e Gaming'},
+{n:2,t:'Praticare sport con regolarità o seguire competizioni sportive',a:'Sport e Movimento'},
+{n:3,t:'Ascoltare, suonare o comporre musica',a:'Musica'},
+{n:4,t:'Disegnare, fotografare, fare video editing o arti visive',a:'Arte e Immagini'},
+{n:5,t:'Leggere libri, scrivere, tenere un diario o un blog',a:'Lettura e Scrittura'},
+{n:6,t:'Fare volontariato o impegnarmi in cause sociali',a:'Sociale e Aiuto'},
+{n:7,t:'Stare nella natura, prendermi cura di piante o animali',a:'Natura e Animali'},
+{n:8,t:'Costruire, riparare oggetti, lavorare con elettronica o fai-da-te',a:'Manuale e Costruzione'},
+{n:9,t:'Cucinare, sperimentare ricette, organizzare cene',a:'Cucina e Cura Pratica'},
+{n:10,t:'Recitare, ballare, creare contenuti per social media o podcast',a:'Performance e Spettacolo'},
+{n:11,t:'Giocare a videogiochi o appassionarmi di game design e gaming culture',a:'Digitale e Gaming'},
+{n:12,t:'Analizzare tattiche, statistiche e performance sportiva',a:'Sport e Movimento'},
+{n:13,t:'Andare a concerti, festival musicali o eventi live',a:'Musica'},
+{n:14,t:'Visitare mostre, musei, gallerie o installazioni artistiche',a:'Arte e Immagini'},
+{n:15,t:'Seguire l\'attualità e approfondire temi di dibattito pubblico',a:'Lettura e Scrittura'},
+{n:16,t:'Organizzare eventi collettivi o gestire progetti di gruppo',a:'Sociale e Aiuto'},
+{n:17,t:'Fare escursioni, campeggio o attività sportive all\'aperto',a:'Natura e Animali'},
+{n:18,t:'Lavorare con stampa 3D, modellismo o sistemi digitali artigianali',a:'Manuale e Costruzione'},
+{n:19,t:'Sperimentare ricette da culture diverse o cimentarmi in pasticceria',a:'Cucina e Cura Pratica'},
+{n:20,t:'Creare contenuti per YouTube, Twitch, TikTok o piattaforme social',a:'Performance e Spettacolo'},
+{n:21,t:'Approfondire temi di intelligenza artificiale, cybersecurity o informatica',a:'Digitale e Gaming'},
+{n:22,t:'Allenarmi in modo strutturato con obiettivi progressivi',a:'Sport e Movimento'},
+{n:23,t:'Produrre musica, mixare tracce o creare playlist curate',a:'Musica'},
+{n:24,t:'Fare fotografia artistica, illustrazione digitale o grafica',a:'Arte e Immagini'},
+{n:25,t:'Partecipare a gruppi di lettura, dibattiti o laboratori di scrittura creativa',a:'Lettura e Scrittura'},
+{n:26,t:'Sensibilizzare su temi ambientali, sociali o fare tutoraggio e supporto allo studio',a:'Sociale e Aiuto'},
+{n:27,t:'Coltivare un orto, fare giardinaggio o occuparmi di animali',a:'Natura e Animali'},
+{n:28,t:'Progettare e costruire oggetti artigianali o riparare apparecchi elettronici',a:'Manuale e Costruzione'},
+{n:29,t:'Organizzare cene tematiche, degustazioni o eventi gastronomici',a:'Cucina e Cura Pratica'},
+{n:30,t:'Partecipare a laboratori teatrali, danza, performance o spettacoli dal vivo',a:'Performance e Spettacolo'}],
+areas:{
+'Digitale e Gaming':{d:'Tecnologia, programmazione, gaming e cultura digitale',i:[1,11,21],m:12},
+'Sport e Movimento':{d:'Sport, attività fisica e performance atletica',i:[2,12,22],m:12},
+'Musica':{d:'Ascolto, produzione e cultura musicale',i:[3,13,23],m:12},
+'Arte e Immagini':{d:'Arti visive, fotografia, design e illustrazione',i:[4,14,24],m:12},
+'Lettura e Scrittura':{d:'Lettura, scrittura, dibattito e cultura',i:[5,15,25],m:12},
+'Sociale e Aiuto':{d:'Volontariato, impegno civile e supporto agli altri',i:[6,16,26],m:12},
+'Natura e Animali':{d:'Attività all\'aperto, natura, animali e ambiente',i:[7,17,27],m:12},
+'Manuale e Costruzione':{d:'Lavori manuali, making, elettronica e artigianato',i:[8,18,28],m:12},
+'Cucina e Cura Pratica':{d:'Cucina, sperimentazione gastronomica e cura della casa',i:[9,19,29],m:12},
+'Performance e Spettacolo':{d:'Spettacolo, social media, contenuti digitali e performance',i:[10,20,30],m:12}}},
+
+{id:'interessi_uni',title:'Interessi Disciplinari Universitari',subtitle:'Quali ambiti di studio ti attraggono?',instruction:'Per ciascuna attività, indica quanto ti attrae come oggetto di studio. Concentrati su cosa ti incuriosisce davvero, non su cosa sai già fare o su quale lavoro vorresti.',icon:'🎓',
+scale:[{v:0,l:'Per niente'},{v:1,l:'Poco'},{v:2,l:'Abbastanza'},{v:3,l:'Molto'},{v:4,l:'Moltissimo'}],
+items:[
+/* --- PASSATA 1: item 1 di ogni area --- */
+{n:1,t:'Progettare strutture, ponti o impianti applicando fisica e matematica a problemi reali',a:'Ingegneria e Tecnologia'},
+{n:2,t:'Progettare algoritmi e scrivere codice per risolvere problemi complessi',a:'Informatica Dati e Digitale'},
+{n:3,t:'Studiare i meccanismi molecolari e cellulari degli organismi viventi',a:'Scienze della Vita e Natura'},
+{n:4,t:'Studiare anatomia, fisiologia e i meccanismi delle malattie',a:'Medico-Sanitaria e Farmacia'},
+{n:5,t:'Analizzare come funzionano i mercati, le imprese e i sistemi economici',a:'Economia e Management'},
+{n:6,t:'Studiare come funzionano gli ordinamenti giuridici e le istituzioni dello Stato',a:'Giuridico-Politica e Internazionale'},
+{n:7,t:'Leggere, analizzare e interpretare testi letterari, storici o filosofici',a:'Umanistica e Lingue'},
+{n:8,t:'Studiare come i media costruiscono l\'informazione e influenzano l\'opinione pubblica',a:'Comunicazione e Media'},
+{n:9,t:'Studiare come le persone apprendono nelle diverse fasi della vita',a:'Educazione e Formazione'},
+{n:10,t:'Studiare i processi cognitivi: percezione, memoria, attenzione e linguaggio',a:'Psicologia e Scienze Sociali'},
+{n:11,t:'Studiare la storia dell\'arte, dei movimenti estetici e del patrimonio culturale',a:'Arte Design e Patrimonio'},
+{n:12,t:'Progettare edifici pensando a funzione, estetica e impatto sull\'ambiente',a:'Architettura e Territorio'},
+{n:13,t:'Studiare la fisiologia e la biomeccanica del movimento umano',a:'Scienze Motorie e Sport'},
+/* --- PASSATA 2: item 2 di ogni area --- */
+{n:14,t:'Studiare come funzionano motori, macchine e sistemi meccanici o elettronici complessi',a:'Ingegneria e Tecnologia'},
+{n:15,t:'Analizzare grandi quantità di dati per trovare pattern e supportare decisioni',a:'Informatica Dati e Digitale'},
+{n:16,t:'Analizzare ecosistemi, biodiversità e processi naturali',a:'Scienze della Vita e Natura'},
+{n:17,t:'Capire come i farmaci agiscono sul corpo umano e come vengono sviluppati',a:'Medico-Sanitaria e Farmacia'},
+{n:18,t:'Studiare strategie aziendali, marketing e gestione delle organizzazioni',a:'Economia e Management'},
+{n:19,t:'Analizzare i sistemi politici, le relazioni internazionali e le organizzazioni globali',a:'Giuridico-Politica e Internazionale'},
+{n:20,t:'Studiare l\'evoluzione delle lingue e la struttura dei sistemi linguistici',a:'Umanistica e Lingue'},
+{n:21,t:'Analizzare i processi comunicativi nelle organizzazioni e nella sfera pubblica',a:'Comunicazione e Media'},
+{n:22,t:'Approfondire le teorie pedagogiche e i metodi didattici',a:'Educazione e Formazione'},
+{n:23,t:'Capire le basi scientifiche del disagio psicologico e degli interventi clinici',a:'Psicologia e Scienze Sociali'},
+{n:24,t:'Progettare oggetti, sistemi visivi o prodotti industriali con metodo e creatività',a:'Arte Design e Patrimonio'},
+{n:25,t:'Studiare come si pianificano città, quartieri e spazi pubblici',a:'Architettura e Territorio'},
+{n:26,t:'Capire come si progettano e gestiscono programmi di allenamento personalizzati',a:'Scienze Motorie e Sport'},
+/* --- PASSATA 3: item 3 di ogni area --- */
+{n:27,t:'Lavorare su progetti edilizi: dal disegno tecnico alla costruzione e al collaudo',a:'Ingegneria e Tecnologia'},
+{n:28,t:'Studiare come funzionano reti, sistemi operativi e sicurezza informatica',a:'Informatica Dati e Digitale'},
+{n:29,t:'Fare ricerca in laboratorio su chimica, fisica o biologia sperimentale',a:'Scienze della Vita e Natura'},
+{n:30,t:'Studiare le tecniche di diagnosi clinica e le basi dell\'intervento terapeutico',a:'Medico-Sanitaria e Farmacia'},
+{n:31,t:'Capire i meccanismi della finanza, della contabilità e del controllo di gestione',a:'Economia e Management'},
+{n:32,t:'Capire i meccanismi della cooperazione internazionale allo sviluppo e della pace',a:'Giuridico-Politica e Internazionale'},
+{n:33,t:'Approfondire la storia delle civiltà, delle idee e dei movimenti culturali',a:'Umanistica e Lingue'},
+{n:34,t:'Capire come funziona il giornalismo e la produzione di contenuti editoriali',a:'Comunicazione e Media'},
+{n:35,t:'Capire come progettare percorsi formativi per bambini, adolescenti o adulti',a:'Educazione e Formazione'},
+{n:36,t:'Analizzare i meccanismi delle disuguaglianze sociali e dei fenomeni collettivi',a:'Psicologia e Scienze Sociali'},
+{n:37,t:'Studiare i linguaggi dello spettacolo: teatro, cinema, musica come forme culturali',a:'Arte Design e Patrimonio'},
+{n:38,t:'Capire il rapporto tra paesaggio, territorio e trasformazioni urbane nel tempo',a:'Architettura e Territorio'},
+{n:39,t:'Approfondire la nutrizione sportiva e i principi della medicina dello sport',a:'Scienze Motorie e Sport'},
+/* --- PASSATA 4: item 4 di ogni area --- */
+{n:40,t:'Studiare sistemi di trasporto, reti infrastrutturali e logistica territoriale',a:'Ingegneria e Tecnologia'},
+{n:41,t:'Costruire modelli statistici e matematici per interpretare fenomeni reali',a:'Informatica Dati e Digitale'},
+{n:42,t:'Studiare come produrre, trasformare e rendere sicuri gli alimenti',a:'Scienze della Vita e Natura'},
+{n:43,t:'Approfondire le professioni sanitarie: riabilitazione, prevenzione, cura',a:'Medico-Sanitaria e Farmacia'},
+{n:44,t:'Studiare il turismo come sistema economico e culturale da progettare e gestire',a:'Economia e Management'},
+{n:45,t:'Studiare il diritto applicato: contratti, diritti civili e normative di settore',a:'Giuridico-Politica e Internazionale'},
+{n:46,t:'Lavorare sulla traduzione e sulla mediazione tra lingue e culture diverse',a:'Umanistica e Lingue'},
+{n:47,t:'Studiare il linguaggio pubblicitario, le relazioni pubbliche e la comunicazione d\'impresa',a:'Comunicazione e Media'},
+{n:48,t:'Studiare i contesti educativi non formali: comunità, sport, lavoro, terzo settore',a:'Educazione e Formazione'},
+{n:49,t:'Analizzare le dinamiche di gruppo, i comportamenti sociali e le reti di relazione',a:'Psicologia e Scienze Sociali'},
+{n:50,t:'Lavorare sulla conservazione, il restauro e la valorizzazione dei beni culturali',a:'Arte Design e Patrimonio'},
+{n:51,t:'Approfondire i metodi di rappresentazione grafica e modellazione architettonica',a:'Architettura e Territorio'},
+{n:52,t:'Studiare le basi scientifiche della prestazione atletica e del recupero fisico',a:'Scienze Motorie e Sport'},
+/* --- PASSATA 5: item 5 di ogni area --- */
+{n:53,t:'Progettare circuiti, robot o sistemi ingegneristici avanzati',a:'Ingegneria e Tecnologia'},
+{n:54,t:'Esplorare le basi teoriche dell\'intelligenza artificiale e del machine learning',a:'Informatica Dati e Digitale'},
+{n:55,t:'Capire i cambiamenti geologici, climatici e ambientali del pianeta',a:'Scienze della Vita e Natura'},
+{n:56,t:'Lavorare su protocolli di sicurezza, igiene e salute pubblica',a:'Medico-Sanitaria e Farmacia'},
+{n:57,t:'Studiare come le politiche economiche e fiscali influenzano imprese e cittadini',a:'Economia e Management'},
+{n:58,t:'Approfondire come le politiche pubbliche vengono costruite, attuate e valutate',a:'Giuridico-Politica e Internazionale'},
+{n:59,t:'Riflettere su questioni etiche, logiche e sul senso dell\'esistenza umana',a:'Umanistica e Lingue'},
+{n:60,t:'Studiare le teorie della comunicazione e i suoi effetti sui comportamenti sociali',a:'Comunicazione e Media'},
+{n:61,t:'Analizzare le politiche scolastiche e i sistemi educativi in prospettiva comparata',a:'Educazione e Formazione'},
+{n:62,t:'Approfondire il servizio sociale come disciplina: metodi, etica e politiche di welfare',a:'Psicologia e Scienze Sociali'},
+{n:63,t:'Esplorare la moda, l\'illustrazione e le arti visive come sistemi espressivi e produttivi',a:'Arte Design e Patrimonio'},
+{n:64,t:'Studiare come la geografia umana e fisica modella i territori e le comunità',a:'Architettura e Territorio'},
+{n:65,t:'Analizzare lo sport come fenomeno sociale, educativo e organizzativo',a:'Scienze Motorie e Sport'}],
+areas:{
+'Ingegneria e Tecnologia':{d:'L-07 L-08 L-09 L-23 — Ingegneria civile, industriale, informatica, edilizia',i:[1,14,27,40,53],m:20},
+'Informatica Dati e Digitale':{d:'L-31 L-41 — Informatica, Statistica, Data Science, AI',i:[2,15,28,41,54],m:20},
+'Scienze della Vita e Natura':{d:'L-02 L-13 L-25 L-26 L-27 L-30 L-32 L-35 — Biologia, Chimica, Agraria, Ambiente',i:[3,16,29,42,55],m:20},
+'Medico-Sanitaria e Farmacia':{d:'L-29 L/SNT — Farmacia, Medicina, Professioni sanitarie',i:[4,17,30,43,56],m:20},
+'Economia e Management':{d:'L-15 L-16 L-18 L-33 — Economia, Management, Turismo',i:[5,18,31,44,57],m:20},
+'Giuridico-Politica e Internazionale':{d:'L-14 L-36 L-37 — Giurisprudenza, Scienze Politiche, Cooperazione',i:[6,19,32,45,58],m:20},
+'Umanistica e Lingue':{d:'L-05 L-10 L-11 L-12 L-42 — Lettere, Filosofia, Lingue, Storia',i:[7,20,33,46,59],m:20},
+'Comunicazione e Media':{d:'L-20 — Scienze della Comunicazione, Giornalismo, Media digitali',i:[8,21,34,47,60],m:20},
+'Educazione e Formazione':{d:'L-19 — Scienze dell\'Educazione, Pedagogia, Formazione',i:[9,22,35,48,61],m:20},
+'Psicologia e Scienze Sociali':{d:'L-24 L-39 L-40 — Psicologia, Servizio Sociale, Sociologia',i:[10,23,36,49,62],m:20},
+'Arte Design e Patrimonio':{d:'L-01 L-03 L-04 L-43 — Beni Culturali, Design, DAMS, Arti visive',i:[11,24,37,50,63],m:20},
+'Architettura e Territorio':{d:'L-17 L-21 — Architettura, Urbanistica, Pianificazione territoriale',i:[12,25,38,51,64],m:20},
+'Scienze Motorie e Sport':{d:'L-22 — Scienze delle Attività Motorie e Sportive',i:[13,26,39,52,65],m:20}}}
+];
+
+/* ===== UNIVERSITY DATABASE (interno - non mostrato in UI) ===== */
+const atenei=[
+{nome:'Università degli Studi di Milano',tipo:'Statale',prov:'Milano',aree:['Scienze della Vita e Natura','Medico-Sanitaria e Farmacia','Umanistica e Lingue','Economia e Management','Psicologia e Scienze Sociali','Comunicazione e Media','Educazione e Formazione'],sito:'https://www.unimi.it'},
+{nome:'Politecnico di Milano',tipo:'Statale',prov:'Milano',aree:['Ingegneria e Tecnologia','Informatica Dati e Digitale','Architettura e Territorio','Arte Design e Patrimonio'],sito:'https://www.polimi.it'},
+{nome:'Università di Milano-Bicocca',tipo:'Statale',prov:'Milano',aree:['Scienze della Vita e Natura','Medico-Sanitaria e Farmacia','Economia e Management','Psicologia e Scienze Sociali','Comunicazione e Media','Informatica Dati e Digitale'],sito:'https://www.unimib.it'},
+{nome:'Università Cattolica del Sacro Cuore',tipo:'Privata',prov:'Milano',aree:['Economia e Management','Umanistica e Lingue','Psicologia e Scienze Sociali','Medico-Sanitaria e Farmacia','Comunicazione e Media','Educazione e Formazione'],sito:'https://www.unicatt.it'},
+{nome:'Università Bocconi',tipo:'Privata',prov:'Milano',aree:['Economia e Management','Giuridico-Politica e Internazionale'],sito:'https://www.unibocconi.it'},
+{nome:'IULM',tipo:'Privata',prov:'Milano',aree:['Comunicazione e Media','Umanistica e Lingue','Arte Design e Patrimonio'],sito:'https://www.iulm.it'},
+{nome:'Humanitas University',tipo:'Privata',prov:'Milano',aree:['Medico-Sanitaria e Farmacia'],sito:'https://www.hunimed.eu'},
+{nome:'Università Vita-Salute San Raffaele',tipo:'Privata',prov:'Milano',aree:['Medico-Sanitaria e Farmacia','Psicologia e Scienze Sociali','Umanistica e Lingue'],sito:'https://www.unisr.it'},
+{nome:'Università degli Studi di Pavia',tipo:'Statale',prov:'Pavia',aree:['Ingegneria e Tecnologia','Scienze della Vita e Natura','Medico-Sanitaria e Farmacia','Economia e Management','Umanistica e Lingue','Giuridico-Politica e Internazionale','Psicologia e Scienze Sociali'],sito:'https://www.unipv.it'},
+{nome:'Università degli Studi di Bergamo',tipo:'Statale',prov:'Bergamo',aree:['Economia e Management','Umanistica e Lingue','Ingegneria e Tecnologia','Comunicazione e Media','Educazione e Formazione'],sito:'https://www.unibg.it'},
+{nome:'Università degli Studi di Brescia',tipo:'Statale',prov:'Brescia',aree:['Ingegneria e Tecnologia','Medico-Sanitaria e Farmacia','Economia e Management','Giuridico-Politica e Internazionale'],sito:'https://www.unibs.it'},
+{nome:"Università dell'Insubria",tipo:'Statale',prov:'Varese-Como',aree:['Scienze della Vita e Natura','Medico-Sanitaria e Farmacia','Economia e Management','Umanistica e Lingue','Giuridico-Politica e Internazionale'],sito:'https://www.uninsubria.it'},
+{nome:'eCampus',tipo:'Telematica',prov:'Online',aree:['Ingegneria e Tecnologia','Economia e Management','Umanistica e Lingue','Psicologia e Scienze Sociali','Comunicazione e Media','Educazione e Formazione'],sito:'https://www.uniecampus.it'},
+{nome:'Università Pegaso',tipo:'Telematica',prov:'Online',aree:['Economia e Management','Umanistica e Lingue','Psicologia e Scienze Sociali','Scienze Motorie e Sport','Educazione e Formazione'],sito:'https://www.unipegaso.it'},
+{nome:'NABA Milano',tipo:'Privata',prov:'Milano',aree:['Arte Design e Patrimonio'],sito:'https://www.naba.it'},
+{nome:'IED Milano',tipo:'Privata',prov:'Milano',aree:['Arte Design e Patrimonio','Comunicazione e Media'],sito:'https://www.ied.it'}
+];
+
+const areaInfo={
+'Ingegneria e Tecnologia':{desc:'Ingegneria civile, industriale, meccanica, elettronica ed edilizia. Richiede solide basi in matematica e fisica.',corsi:['Ingegneria Civile','Ingegneria Meccanica','Ingegneria Elettronica','Ingegneria Edile','Ingegneria dei Trasporti'],sbocchi:['Ingegnere progettista','Direttore tecnico','Ingegnere strutturista','Tecnico impiantistico','Project manager'],test:'TOLC-I',carico:'Alto',stile:'Teorico-pratico'},
+'Informatica Dati e Digitale':{desc:'Informatica, data science, statistica e intelligenza artificiale. Per chi ama il ragionamento formale e i sistemi digitali.',corsi:['Informatica','Data Science','Statistica','Cybersecurity','Intelligenza Artificiale'],sbocchi:['Sviluppatore software','Data scientist','Analista dati','Esperto cybersecurity','Ricercatore AI'],test:'TOLC-I',carico:'Alto',stile:'Logico-analitico'},
+'Scienze della Vita e Natura':{desc:'Biologia, chimica, agraria, scienze ambientali e fisiche. Per chi ama capire come funziona il mondo naturale.',corsi:['Biologia','Chimica','Scienze Agrarie','Scienze Ambientali','Biotecnologie','Fisica','Matematica'],sbocchi:['Biologo','Chimico','Agronomo','Tecnico ambientale','Ricercatore scientifico'],test:'TOLC-S o TOLC-AV',carico:'Alto',stile:'Sperimentale-analitico'},
+'Medico-Sanitaria e Farmacia':{desc:'Farmacia, professioni sanitarie e riabilitazione. Richiede motivazione forte, metodo rigoroso e orientamento alla cura.',corsi:['Farmacia','Infermieristica','Fisioterapia','Ostetricia','Tecniche di Laboratorio','Logopedia'],sbocchi:['Farmacista','Infermiere','Fisioterapista','Tecnico sanitario','Logopedista'],test:'TOLC-MED o test locale',carico:'Molto alto',stile:'Teorico-clinico'},
+'Economia e Management':{desc:'Economia, management, amministrazione e turismo. Per chi vuole capire e guidare sistemi organizzativi e mercati.',corsi:['Economia Aziendale','Management','Economia e Commercio','Scienze del Turismo','Amministrazione Pubblica'],sbocchi:['Manager','Consulente aziendale','Economista','Responsabile HR','Operatore turistico'],test:'TOLC-E',carico:'Medio-alto',stile:'Analitico-gestionale'},
+'Giuridico-Politica e Internazionale':{desc:'Giurisprudenza, scienze politiche, relazioni internazionali e cooperazione. Per chi vuole capire le istituzioni e le dinamiche di potere.',corsi:['Giurisprudenza','Scienze Politiche','Relazioni Internazionali','Scienze dei Servizi Giuridici','Cooperazione Internazionale'],sbocchi:['Avvocato','Diplomatico','Funzionario pubblico','Consulente legale','Operatore ONG'],test:'Raramente richiesto',carico:'Medio-alto',stile:'Teorico-argomentativo'},
+'Umanistica e Lingue':{desc:'Lettere, filosofia, lingue, storia e mediazione linguistica. Per chi ama il testo, il pensiero critico e le culture del mondo.',corsi:['Lettere','Filosofia','Lingue e Culture Moderne','Mediazione Linguistica','Storia'],sbocchi:['Insegnante','Traduttore','Interprete','Giornalista','Curatore culturale'],test:'Raramente richiesto',carico:'Medio',stile:'Riflessivo-ermeneutico'},
+'Comunicazione e Media':{desc:'Scienze della comunicazione, giornalismo e media digitali. Per chi vuole capire e produrre informazione e contenuti nel mondo contemporaneo.',corsi:['Scienze della Comunicazione','Giornalismo','Media Digitali','Relazioni Pubbliche','Comunicazione Istituzionale'],sbocchi:['Giornalista','Comunicatore','Social media manager','Addetto stampa','Content strategist'],test:'Raramente richiesto',carico:'Medio',stile:'Teorico-creativo'},
+'Educazione e Formazione':{desc:'Scienze dell\'educazione e della formazione. Per chi vuole lavorare sui processi di apprendimento e sviluppo umano.',corsi:["Scienze dell'Educazione",'Educazione Professionale','Scienze della Formazione Primaria','Pedagogia'],sbocchi:['Educatore professionale','Formatore aziendale','Coordinatore pedagogico','Insegnante','Animatore sociale'],test:'Raramente richiesto',carico:'Medio',stile:'Riflessivo-relazionale'},
+'Psicologia e Scienze Sociali':{desc:'Psicologia, sociologia e servizio sociale. Per chi vuole studiare la mente, il comportamento e le dinamiche sociali con metodo scientifico.',corsi:['Psicologia','Scienze Cognitive','Sociologia','Servizio Sociale','Neuroscienze'],sbocchi:['Psicologo','Assistente sociale','Sociologo','Ricercatore','HR specialist'],test:'TOLC-PSI o test locale',carico:'Medio-alto',stile:'Scientifico-relazionale'},
+'Arte Design e Patrimonio':{desc:'Beni culturali, design, DAMS, arti visive e moda. Per chi ha sensibilità estetica e vuole lavorare con la cultura e la creatività.',corsi:['Design del Prodotto','DAMS','Beni Culturali','Graphic Design','Moda e Costume','Diagnostica per i Beni Culturali'],sbocchi:['Designer','Curatore museale','Regista','Grafico','Restauratore','Art director'],test:'Portfolio o test attitudinale',carico:'Medio',stile:'Creativo-progettuale'},
+'Architettura e Territorio':{desc:'Architettura, urbanistica e pianificazione territoriale. Per chi pensa per spazi, ha visione progettuale e interesse per il costruito.',corsi:['Architettura','Urbanistica','Ingegneria Edile-Architettura','Pianificazione Territoriale'],sbocchi:['Architetto','Urbanista','Paesaggista','Interior designer','Pianificatore territoriale'],test:'TOLC-ARC',carico:'Alto',stile:'Progettuale-visivo'},
+'Scienze Motorie e Sport':{desc:'Scienze delle attività motorie e sportive (L-22). Per chi vuole studiare il corpo, il movimento e lo sport come oggetto scientifico.',corsi:['Scienze Motorie','Scienze dello Sport','Management Sportivo','Sport e Salute'],sbocchi:['Preparatore atletico','Educatore motorio','Tecnico sportivo','Manager sportivo','Ricercatore in scienze motorie'],test:'Test motorio + TOLC',carico:'Medio',stile:'Scientifico-pratico'}
+};
+
+/* ===== APP STATE ===== */
+let userName='',userAge='',userDate='',enabledQ=[],answers={},curQ=-1,sndOn=true,startTime=null,charts=[];
+const $=id=>document.getElementById(id),app=$('app');
+
+/* Audio */
+const AC=new(window.AudioContext||window.webkitAudioContext)();
+function bip(f,d,t,g){if(!sndOn)return;try{AC.resume().then(()=>{const o=AC.createOscillator(),gn=AC.createGain();o.connect(gn);gn.connect(AC.destination);o.type=t||'sine';o.frequency.value=f;gn.gain.value=g||.08;o.start();gn.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)})}catch(e){}}
+function sClick(){bip(880,.06,'sine',.06);bip(1320,.04,'sine',.04)}
+function sNav(){bip(523,.08);bip(659,.08);setTimeout(()=>bip(784,.12),60)}
+function sDone(){bip(523,.15);setTimeout(()=>bip(659,.15),100);setTimeout(()=>bip(784,.15),200);setTimeout(()=>bip(1047,.25),300)}
+function sCeleb(){[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>bip(f,.2,'sine',.1),i*120))}
+function tglSnd(){sndOn=!sndOn;$('sndT').textContent=sndOn?'\ud83d\udd0a':'\ud83d\udd07'}
+
+/* Toast */
+function toast(msg,dur){const t=$('toast-el');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur||2500)}
+
+/* Encouragement */
+const encMsgs=['Ottimo inizio! \ud83d\udcaa','Stai andando alla grande! \u2b50','Continua così! \ud83d\ude80','Quasi fatto! \ud83c\udfaf','Grande lavoro! \ud83c\udf1f','Forza, ci sei! \ud83d\udd25'];
+let lastEncAt=0;
+function maybeEnc(pct){if(pct-lastEncAt>=15){lastEncAt=pct;toast(encMsgs[Math.min(Math.floor(pct/18),encMsgs.length-1)])}}
+
+/* Save/Load */
+function saveState(){try{const d={version:1,timestamp:new Date().toISOString(),userInfo:{nome:userName,eta:userAge,data:userDate},enabledQ,answers,curQ};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='orientamento_uni_'+(userName||'utente')+'_'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Salvato! \u2713')}catch(e){alert('Errore: '+e.message)}}
+function loadState(){$('impI').click()}
+function hImp(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.userInfo){userName=d.userInfo.nome||'';userAge=d.userInfo.eta||'';userDate=d.userInfo.data||'';}else{userName=d.userName||'';}enabledQ=d.enabledQ||[];answers=d.answers||{};curQ=d.curQ||-1;toast('Dati caricati! \u2713');showHub()}catch(er){alert('File non valido')}};r.readAsText(f)}
+
+let ansCnt=0;
+function autoSaveCheck(){ansCnt++;if(ansCnt%15===0)toast('Progressi registrati \u2713',1800)}
+
+/* ===== BUILD SECTION SEQUENCE ===== */
+function buildSeq(){
+  enabledQ=Q.map((_,i)=>i); // tutte le 9 sezioni sempre attive
+}
+
+/* ===== SCORING ===== */
+function calcScores(qi){
+  const q=Q[qi],ans=answers[q.id]||{},res={};
+  for(const[aName,aData]of Object.entries(q.areas)){
+    let sum=0,cnt=0;
+    aData.i.forEach(n=>{if(ans[n]!==undefined){sum+=ans[n];cnt++}});
+    const pct=aData.m>0?Math.round(sum/aData.m*100):0;
+    res[aName]={sum,max:aData.m,pct,neg:!!aData.neg,desc:aData.d,cnt};
+  }
+  return res;
+}
+function calcAllScores(){const all={};enabledQ.forEach(qi=>{all[Q[qi].id]=calcScores(qi)});return all}
+
+/* ===== DISCIPLINARY MATCHING ===== */
+function calcMatch(){
+  const sc=calcAllScores();
+  const areas=Object.keys(areaInfo);
+  const ranking=[];
+
+  // mapping passioni_personali → area disciplinare
+  const passioniMap={
+    'Ingegneria e Tecnologia':'Manuale e Costruzione',
+    'Informatica Dati e Digitale':'Digitale e Gaming',
+    'Scienze della Vita e Natura':'Natura e Animali',
+    'Medico-Sanitaria e Farmacia':'Sociale e Aiuto',
+    'Economia e Management':'Lettura e Scrittura',
+    'Giuridico-Politica e Internazionale':'Sociale e Aiuto',
+    'Umanistica e Lingue':'Lettura e Scrittura',
+    'Comunicazione e Media':'Performance e Spettacolo',
+    'Educazione e Formazione':'Sociale e Aiuto',
+    'Psicologia e Scienze Sociali':'Sociale e Aiuto',
+    'Arte Design e Patrimonio':'Arte e Immagini',
+    'Architettura e Territorio':'Arte e Immagini',
+    'Scienze Motorie e Sport':'Sport e Movimento'
+  };
+
+  // mapping cognitivi → area disciplinare
+  const cogMap={
+    'Ingegneria e Tecnologia':'Logico-Matematica',
+    'Informatica Dati e Digitale':'Logico-Matematica',
+    'Scienze della Vita e Natura':'Naturalistica',
+    'Medico-Sanitaria e Farmacia':'Naturalistica',
+    'Economia e Management':'Logico-Matematica',
+    'Giuridico-Politica e Internazionale':'Interpersonale',
+    'Umanistica e Lingue':'Linguistica',
+    'Comunicazione e Media':'Linguistica',
+    'Educazione e Formazione':'Interpersonale',
+    'Psicologia e Scienze Sociali':'Intrapersonale',
+    'Arte Design e Patrimonio':'Visuo-Spaziale',
+    'Architettura e Territorio':'Visuo-Spaziale',
+    'Scienze Motorie e Sport':'Cinestetica'
+  };
+
+  // mapping apprendimento → area disciplinare
+  const appMap={
+    'Ingegneria e Tecnologia':'Pragmatico',
+    'Informatica Dati e Digitale':'Teorico',
+    'Scienze della Vita e Natura':'Attivo',
+    'Medico-Sanitaria e Farmacia':'Pragmatico',
+    'Economia e Management':'Pragmatico',
+    'Giuridico-Politica e Internazionale':'Riflessivo',
+    'Umanistica e Lingue':'Riflessivo',
+    'Comunicazione e Media':'Attivo',
+    'Educazione e Formazione':'Riflessivo',
+    'Psicologia e Scienze Sociali':'Teorico',
+    'Arte Design e Patrimonio':'Attivo',
+    'Architettura e Territorio':'Pragmatico',
+    'Scienze Motorie e Sport':'Pragmatico'
+  };
+
+  areas.forEach(area=>{
+    let total=0;
+    // interessi disciplinari: peso 50%
+    const intSc=sc.interessi_uni;
+    if(intSc&&intSc[area])total+=(intSc[area].pct/100)*.50;
+    // passioni personali: peso 15%
+    const ppSc=sc.passioni_personali;
+    if(ppSc&&passioniMap[area]){const pk=passioniMap[area];if(ppSc[pk])total+=(ppSc[pk].pct/100)*.15;}
+    // cognitivi: peso 10%
+    const cogSc=sc.cognitivi;
+    if(cogSc&&cogMap[area]){const ck=cogMap[area];if(cogSc[ck])total+=(cogSc[ck].pct/100)*.10;}
+    // apprendimento: peso 10%
+    const appSc=sc.apprendimento;
+    if(appSc&&appMap[area]){const ak=appMap[area];if(appSc[ak])total+=(appSc[ak].pct/100)*.10;}
+    // rendimento scolastico: peso 10%
+    const stSc=sc.storia;
+    if(stSc&&stSc['Rendimento Scolastico'])total+=(stSc['Rendimento Scolastico'].pct/100)*.10;
+    // locus+coping: peso 5%
+    let psy=50;
+    if(sc.locus)psy=sc.locus['Interno']?.pct||50;
+    if(sc.coping)psy=(psy+(sc.coping['Attivo']?.pct||50))/2;
+    total+=(psy/100)*.05;
+    ranking.push({area,pct:Math.round(total*100)});
+  });
+  ranking.sort((a,b)=>b.pct-a.pct);
+  return ranking;
+}
+
+/* ===== UI: WELCOME ===== */
+function showWelcome(){
+  curQ=-1;$('sticky-header').style.display='none';$('sticky-footer').style.display='none';$('progress-container').style.display='none';
+  const sn=$('stickyNav');if(sn)sn.style.display='none';
+  const today=new Date().toISOString().split('T')[0];
+  app.innerHTML='<div class="ws"><span class="ci">\ud83c\udf93</span><h1>Orientamento <span>Universitario</span></h1><p>Uno strumento per esplorare attitudini, interessi e stile di apprendimento e trovare il percorso accademico più adatto a te. 9 sezioni · ~260 domande · 60–75 minuti.</p><div class="uf"><label>Nome</label><input id="uName" placeholder="Nome" value="'+userName+'"><label>Cognome</label><input id="uCogn" placeholder="Cognome" value=""><label>Età</label><input id="uAge" type="number" placeholder="Es. 18" min="14" max="35" value="'+userAge+'"><label>Data</label><input id="uDate" type="date" value="'+(userDate||today)+'"></div><button class="btn btn-p" onclick="goStart()">Inizia &#8594;</button><div style="margin-top:14px;display:flex;gap:8px;justify-content:center"><button class="btn btn-s btn-sm" onclick="loadState()">&#128194; Carica salvataggio</button></div></div>';
+}
+
+function goStart(){
+  const n=$('uName')?.value||'',c=$('uCogn')?.value||'';
+  userName=(n+(c?' '+c:'')).trim()||userName;
+  userAge=$('uAge')?.value||userAge;
+  userDate=$('uDate')?.value||userDate;
+  sClick();
+  if(!startTime)startTime=Date.now();
+  buildSeq();showHub();
+}
+
+/* ===== HUB ===== */
+const blkLabels=['Blocco 1 · Strategie Comportamentali ed Emotive','Blocco 2 · Profilo Cognitivo e Competenze','Blocco 3 · Interessi, Passioni e Storia'];
+
+function showHub(){
+  curQ=-1;$('sticky-header').style.display='none';$('sticky-footer').style.display='none';$('progress-container').style.display='none';
+  const sn=$('stickyNav');if(sn)sn.style.display='none';
+  const totalItems=enabledQ.reduce((s,i)=>s+Q[i].items.length,0);
+  let doneItems=0,doneSections=0;
+  enabledQ.forEach(qi=>{const q=Q[qi],a=answers[q.id]||{};const n=q.items.filter(it=>a[it.n]!==undefined).length;doneItems+=n;if(n===q.items.length)doneSections++});
+  const pct=totalItems?Math.round(doneItems/totalItems*100):0;
+  const allDone=doneSections===enabledQ.length&&enabledQ.length>0;
+  let h='<div class="ws" style="padding:16px 0"><h1 style="font-size:1.5em">\ud83c\udf93 Ciao, <span>'+(userName||'utente')+'</span></h1>';
+  h+='<p style="margin-bottom:12px">9 sezioni · '+totalItems+' domande</p>';
+  h+='<div style="max-width:400px;margin:0 auto 16px"><div style="display:flex;justify-content:space-between;font-size:.78em;margin-bottom:4px"><span style="font-weight:700">Completamento</span><span style="font-family:\'JetBrains Mono\';color:var(--accent);font-weight:700">'+pct+'%</span></div><div style="height:10px;background:var(--bg-input);border-radius:5px;overflow:hidden"><div style="height:100%;width:'+pct+'%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--cyan),var(--green));transition:width .8s"></div></div></div>';
+  // 3x3 grid con etichette di blocco
+  h+='<div style="max-width:660px;margin:0 auto">';
+  enabledQ.forEach((qi,idx)=>{
+    if(idx%3===0){
+      if(idx>0)h+='</div>';
+      h+='<div class="blk-label">'+blkLabels[Math.floor(idx/3)]+'</div><div class="hub-grid">';
+    }
+    const q=Q[qi],a=answers[q.id]||{};
+    const n=q.items.filter(it=>a[it.n]!==undefined).length;
+    const done=n===q.items.length;
+    h+='<div class="qsc '+(done?'done':'')+'" onclick="openQ('+idx+')"><span class="qi">'+q.icon+'</span><div class="qn">'+q.title+'</div><div class="qd">'+q.items.length+' domande · '+n+'/'+q.items.length+'</div><div class="qb '+(done?'ok':'no')+'">'+(done?'\u2713':(idx+1))+'</div></div>';
+  });
+  h+='</div></div>';
+  h+='<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px">';
+  h+='<button class="btn '+(doneItems>0?'btn-g':'btn-p')+'" onclick="showReport()">\ud83d\udcca '+(allDone?'Vedi Report':'Report parziale')+'</button>';
+  h+='<button class="btn btn-s btn-sm" onclick="saveState()">\ud83d\udcbe Salva JSON</button>';
+  h+='<button class="btn btn-s btn-sm" onclick="loadState()">\ud83d\udcc2 Carica</button>';
+  h+='<button class="btn btn-s btn-sm" onclick="showWelcome()">\u21a9 Ricomincia</button>';
+  if(allDone)h+='<button class="btn btn-s btn-sm" onclick="showOpReport()">\ud83d\udc68\u200d\ud83c\udfeb Operatore</button>';
+  h+='</div></div>';
+  app.innerHTML=h;
+}
+
+/* ===== QUESTIONNAIRE RENDER ===== */
+function openQ(seqIdx){
+  curQ=seqIdx;
+  const qi=enabledQ[seqIdx],q=Q[qi],a=answers[q.id]||{};
+  if(!answers[q.id])answers[q.id]={};
+  const done=q.items.filter(it=>a[it.n]!==undefined).length;
+  const allDone=done===q.items.length;
+  // sticky header
+  $('sticky-header').style.display='';
+  $('progress-container').style.display='';
+  $('sticky-footer').style.display='none';
+  $('hT').textContent=q.icon+' '+q.title;
+  $('hS').textContent=q.subtitle;
+  $('hI').textContent=q.instruction;
+  // sticky nav in header: solo titolo compatto + contatore, zero pulsanti duplicati
+  const sn=$('stickyNav');
+  sn.style.display='flex';
+  sn.innerHTML='<span style="font-size:.78em;color:var(--text-sec);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">'+q.icon+' '+q.title+'</span>'
+    +'<span class="nc" id="snc">'+done+'/'+q.items.length+'</span>';
+  // render domande
+  let h='<div class="qsec" style="padding-top:90px">';
+  // blocco introduttivo in pagina
+  h+='<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow-sm)">'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
+    +'<span style="font-size:2em">'+q.icon+'</span>'
+    +'<div><div style="font-family:\'Playfair Display\',serif;font-size:1.2em;color:var(--accent);font-weight:700">'+q.title+'</div>'
+    +'<div style="font-size:.85em;color:var(--text-sec);margin-top:2px">'+q.subtitle+'</div></div></div>'
+    +'<div style="font-size:.88em;color:var(--text-sec);background:var(--accent-bg);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.6">'+q.instruction+'</div>'
+    +'</div>';
+  q.items.forEach((it,idx)=>{
+    const ans=a[it.n];const isAns=ans!==undefined;
+    h+='<div class="qc '+(isAns?'ans':'')+'" id="qc'+it.n+'" style="animation-delay:'+Math.min(idx*30,300)+'ms">'
+      +'<div class="qnum">'+(it.r?'↻ ':'')+'DOMANDA '+it.n+' di '+q.items.length+'</div>'
+      +'<div class="qt">'+it.t+'</div>'
+      +'<div class="ls">';
+    q.scale.forEach(s=>{h+='<div class="lo '+(ans===s.v?'sel':'')+'" onclick="pick(\''+q.id+'\','+it.n+','+s.v+',this)"><span class="lv">'+s.v+'</span><span class="ll">'+s.l+'</span></div>'});
+    h+='</div></div>';
+  });
+  // bottom bar: unico punto di navigazione
+  const hasNext=seqIdx<enabledQ.length-1;
+  const nextLbl=hasNext?(allDone?'Avanti →':'Avanti →'):'✓ Fine';
+  const nextAct=hasNext?'openQ('+(seqIdx+1)+')':'goHub()';
+  const nextCls=allDone?'btn-g':'btn-p';
+  h+='<div class="nb">'
+    +'<button class="btn btn-s btn-sm" onclick="goHub()">← Menu</button>'
+    +'<div class="nc" id="bnc">'+done+'/'+q.items.length+' risposte</div>'
+    +'<button class="btn btn-sm '+nextCls+'" id="bnb" onclick="'+nextAct+'">'+nextLbl+'</button>'
+    +'</div></div>';
+  app.innerHTML=h;
+  updateGlobalBar();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function pick(qid,n,v,el){
+  sClick();answers[qid][n]=v;
+  const card=el.closest('.qc');card.querySelectorAll('.lo').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');card.classList.add('ans');
+  autoSaveCheck();updateFooter(Q[enabledQ[curQ]]);
+  const totalAns=enabledQ.reduce((s,i)=>{const a=answers[Q[i].id]||{};return s+Object.keys(a).length},0);
+  const totalItems=enabledQ.reduce((s,i)=>s+Q[i].items.length,0);
+  maybeEnc(Math.round(totalAns/totalItems*100));
+  const q=Q[enabledQ[curQ]],a=answers[q.id]||{};
+  if(q.items.every(it=>a[it.n]!==undefined)){sDone();toast('Sezione completata! \u2728',2000)}
+}
+
+function updateGlobalBar(){
+  const totalItems=enabledQ.reduce((s,i)=>s+Q[i].items.length,0);
+  let doneItems=0;enabledQ.forEach(qi=>{const aa=answers[Q[qi].id]||{};doneItems+=Q[qi].items.filter(it=>aa[it.n]!==undefined).length});
+  const gPct=totalItems?Math.round(doneItems/totalItems*100):0;
+  const pb=$('pbi');if(pb){pb.style.width=gPct+'%';const pp=$('pbi-pct');if(pp)pp.textContent=gPct+'%';}
+}
+
+function updateFooter(q){
+  const a=answers[q.id]||{};
+  const done=q.items.filter(it=>a[it.n]!==undefined).length;
+  const allDone=done===q.items.length;
+  // header: solo contatore
+  const snc=$('snc');
+  if(snc)snc.textContent=done+'/'+q.items.length;
+  // bottom bar: contatore + pulsante avanti/fine
+  const bnc=$('bnc'),bnb=$('bnb');
+  if(bnc)bnc.textContent=done+'/'+q.items.length+' risposte';
+  if(bnb){
+    const hasNext=curQ<enabledQ.length-1;
+    bnb.textContent=hasNext?'Avanti →':'✓ Fine';
+    bnb.className='btn btn-sm '+(allDone?'btn-g':'btn-p');
+    bnb.onclick=hasNext?()=>openQ(curQ+1):goHub;
+  }
+  updateGlobalBar();
+}
+
+function goHub(){sNav();lastEncAt=0;showHub()}
+
+/* ===== GLOBAL NARRATIVE ===== */
+function genNarrGlobal(sc,ranking){
+  const nm=userName||'amico/a';
+  let t='Ciao '+nm+',\n\nquesto report è stato costruito a partire dalle tue risposte. Non è un verdetto, ma una mappa — leggila con curiosità, come se stessi guardando per la prima volta il territorio che hai già dentro di te.\n\n';
+  // Aree di interesse
+  const top=ranking.slice(0,3);
+  t+='<strong>Il tuo orientamento disciplinare.</strong> ';
+  t+='Le aree che emergono con più forza sono <strong>'+top[0].area+'</strong> ('+top[0].pct+'%)';
+  if(top[1])t+=', <strong>'+top[1].area+'</strong> ('+top[1].pct+'%)';
+  if(top[2]&&top[2].pct>30)t+=' e <strong>'+top[2].area+'</strong> ('+top[2].pct+'%)';
+  t+='. ';
+  if(top[0].pct>70)t+='Un interesse molto netto: ottimo punto di partenza. ';
+  else if(top[0].pct>50)t+='Interessi chiari e praticabili. ';
+  else t+='Interessi distribuiti: esplora più percorsi prima di decidere. ';
+  // Coping e locus
+  const cop=sc.coping,loc=sc.locus;
+  if(cop||loc){t+='\n\n<strong>Come affronti le sfide.</strong> ';
+    if(cop){const att=cop['Attivo']?.pct||0,ev=cop['Evitante']?.pct||0;
+      if(att>60&&ev<35)t+='Stile di coping prevalentemente attivo ('+att+'%): affronti le difficoltà di petto. ';
+      else if(ev>50)t+='Componente evitante significativa ('+ev+'%): da presidiare nel percorso universitario, dove le scadenze si accumulano. ';
+      else t+='Stile di coping equilibrato. ';}
+    if(loc){const in_=loc['Interno']?.pct||0,ex=loc['Esterno']?.pct||0;
+      if(in_>ex+15)t+='Locus interno solido ('+in_+'%): credi nel tuo impegno come leva principale. ';
+      else if(ex>in_+15)t+='Tendenza all\'attribuzione esterna ('+ex+'%): il percorso universitario chiederà di attivare maggiore senso di agentività. ';
+      else t+='Equilibrio tra locus interno ('+in_+'%) ed esterno ('+ex+'%): visione realistica. ';}}
+  // Apprendimento
+  const app2=sc.apprendimento;
+  if(app2){const topA=Object.entries(app2).sort((a,b)=>b[1].pct-a[1].pct);
+    t+='\n\n<strong>Come impari meglio.</strong> ';
+    t+='Stile dominante: <strong>'+topA[0][0]+'</strong> ('+topA[0][1].pct+'%). ';
+    if(topA[0][0]==='Attivo')t+='Impari facendo: cerca corsi con laboratori, project work e pratica diretta. ';
+    else if(topA[0][0]==='Riflessivo')t+='Impari osservando e analizzando: valorizza contesti con tempo per lo studio individuale. ';
+    else if(topA[0][0]==='Teorico')t+='La tua mente cerca struttura: i percorsi con solida base teorica ti sono congeniali. ';
+    else if(topA[0][0]==='Pragmatico')t+='Vuoi vedere l\'utilità concreta: cerca corsi con tirocini, stage e problem-solving reale. ';}
+  // Passioni
+  const pass=sc.passioni_personali;
+  if(pass){const topP=Object.entries(pass).sort((a,b)=>b[1].pct-a[1].pct).slice(0,2);
+    t+='\n\n<strong>Le tue passioni.</strong> ';
+    t+='<strong>'+topP[0][0]+'</strong> ('+topP[0][1].pct+'%)';
+    if(topP[1]&&topP[1][1].pct>40)t+=' e <strong>'+topP[1][0]+'</strong> ('+topP[1][1].pct+'%)';
+    t+='. Le passioni sono il segnale più autentico di chi sei. Verifica quanto le tue aree disciplinari di punta le intersecano. '}
+  // Storia
+  const st=sc.storia;
+  if(st){t+='\n\n<strong>Il tuo percorso scolastico.</strong> ';
+    const bar=st['Barriere']?.pct||0,met=st['Metodo di Studio']?.pct||0,rend=st['Rendimento Scolastico']?.pct||0;
+    if(met>60)t+='Metodo di studio consolidato ('+met+'%): risorsa preziosa per il ritmo universitario. ';
+    else if(met<35)t+='Metodo di studio da strutturare ('+met+'%): priorità prima dell\'iscrizione. ';
+    if(bar>50)t+='Barriere rilevanti nel percorso ('+bar+'%): tenerle presenti nella scelta del carico. ';
+    else if(bar<25)t+='Percorso relativamente fluido. ';
+    if(rend>60)t+='Rendimento scolastico solido ('+rend+'%). ';}
+  t+='\n\nRicorda: questi dati non decidono il tuo futuro. Sono una bussola, non una sentenza. Qualunque direzione sceglierai, porterai con te tutte le risorse che hai scoperto oggi.';
+  return t.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+
+/* ===== NARRATIVE GENERATOR ===== */
+function genNarr(id,sc){
+  const hi=a=>sc[a]?.pct>=65,lo=a=>sc[a]?.pct<35;
+  let t='';
+  switch(id){
+  case 'fronteggiamento':
+    if(hi('Progettualità')&&hi('Ricerca di aiuto'))t='Profilo equilibrato: forte capacità di pianificazione unita a buona rete di supporto. Approccio maturo e flessibile al fronteggiamento.';
+    else if(hi('Progettualità'))t='Forte tendenza alla pianificazione strategica autonoma. Potresti beneficiare dal coltivare la rete di supporto interpersonale.';
+    else if(hi('Ricerca di aiuto'))t='Forte orientamento sociale nel fronteggiamento. Ti avvali del confronto con gli altri. Rafforza la pianificazione autonoma.';
+    else t='Entrambe le dimensioni sono in sviluppo. Il percorso universitario richiederà di potenziare sia la pianificazione che la rete di supporto.';break;
+  case 'coping':
+    if(hi('Attivo')&&lo('Evitante'))t='Stile di coping prevalentemente attivo e orientato al problema. Profilo adatto alle sfide del percorso accademico.';
+    else if(hi('Evitante'))t='Attenzione: tendenza significativa all\'evitamento. Sarà importante sviluppare strategie di fronteggiamento più attive e dirette.';
+    else if(hi('Emotivo'))t='Buona regolazione emotiva. Affiancare al coping emotivo anche un approccio più attivo al problem-solving rafforzerà il profilo.';
+    else t='Profilo di coping distribuito. Nessuna strategia prevalente: potenziale flessibilità adattiva.';break;
+  case 'locus':
+    if(hi('Interno')&&lo('Esterno'))t='Forte locus interno. Ti percepisci artefice del tuo percorso. Mantieni consapevolezza dei fattori contestuali reali senza sottovalutarli.';
+    else if(hi('Esterno'))t='Prevalenza di attribuzione esterna. Il percorso universitario richiederà di riconoscere e attivare il tuo potere di azione personale.';
+    else t='Equilibrio tra locus interno ed esterno. Profilo realistico che combina senso di agentività e consapevolezza del contesto.';break;
+  case 'cognitivi':
+    const topC=Object.entries(sc).sort((a,b)=>b[1].pct-a[1].pct).slice(0,3);
+    t='Intelligenze predominanti: '+topC.map(([k,v])=>'<strong>'+k+'</strong> ('+v.pct+'%)').join(', ')+'. Ogni profilo è unico e presenta punti di forza distintivi.';break;
+  case 'softskills':
+    const topS=Object.entries(sc).sort((a,b)=>b[1].pct-a[1].pct).slice(0,3);
+    const weakS=Object.entries(sc).filter(([k,v])=>v.pct<40).map(([k])=>k);
+    t='Competenze più sviluppate: '+topS.map(([k,v])=>k+' ('+v.pct+'%)').join(', ')+'. ';
+    if(weakS.length)t+='Da potenziare per il percorso universitario: '+weakS.join(', ')+'.';break;
+  case 'apprendimento':
+    const topA=Object.entries(sc).sort((a,b)=>b[1].pct-a[1].pct).slice(0,2);
+    t='Stili predominanti: '+topA.map(([k,v])=>'<strong>'+k+'</strong> ('+v.pct+'%)').join(' e ')+'. ';
+    if(topA[0]&&topA[0][0]==='Attivo')t+='Prediligi l\'esperienza diretta: cerca corsi con laboratori e project work.';
+    else if(topA[0]&&topA[0][0]==='Riflessivo')t+='Prediligi l\'osservazione e l\'analisi: valorizza i contesti con studio individuale e feedback.';
+    else if(topA[0]&&topA[0][0]==='Teorico')t+='Prediligi modelli e concetti: i percorsi con solida base teorica ti sono congeniali.';
+    else if(topA[0]&&topA[0][0]==='Pragmatico')t+='Prediligi l\'applicazione immediata: cerca corsi con tirocini, stage e problem-solving reale.';
+    break;
+  case 'interessi_uni':
+    const topI=Object.entries(sc).sort((a,b)=>b[1].pct-a[1].pct).slice(0,3);
+    t='Aree di maggiore interesse: '+topI.map(([k,v])=>'<strong>'+k+'</strong> ('+v.pct+'%)').join(', ')+'. ';
+    if(topI[0][1].pct>80)t+='Interesse molto marcato: ottimo punto di partenza per l\'orientamento.';
+    else if(topI[0][1].pct>60)t+='Interessi chiari: esplora i corsi nelle aree top con visite e open day.';
+    else t+='Interessi distribuiti: utile approfondire con esperienze concrete prima della scelta definitiva.';break;
+  case 'passioni_personali':
+    const topP=Object.entries(sc).sort((a,b)=>b[1].pct-a[1].pct).slice(0,3);
+    t='Passioni principali: '+topP.map(([k,v])=>'<strong>'+k+'</strong> ('+v.pct+'%)').join(', ')+'. Le passioni personali sono indicatori preziosi di motivazione intrinseca e coerenza con il percorso.';break;
+  case 'storia':
+    if(hi('Metodo di Studio'))t='Buon metodo di studio consolidato. ';else if(lo('Metodo di Studio'))t='Metodo di studio da strutturare prima dell\'ingresso in università. ';
+    else t='Metodo di studio nella media. ';
+    if(hi('Rendimento Scolastico'))t+='Rendimento scolastico solido. ';
+    if(hi('Barriere'))t+='Barriere significative segnalate nel percorso: è importante tenerne conto nella scelta. ';
+    else if(lo('Barriere'))t+='Percorso scolastico relativamente privo di ostacoli rilevanti. ';
+    if(hi('Esperienze Formative'))t+='Ricco bagaglio di esperienze formative extracurriculari.';break;
+  default:t='Analisi non disponibile.'}
+  return t;
+}
+
+/* ===== REPORT ===== */
+function showReport(){
+  sCeleb();charts.forEach(c=>{try{c.destroy()}catch(e){}});charts=[];
+  $('sticky-header').style.display='none';$('sticky-footer').style.display='none';$('progress-container').style.display='none';
+  const sn=$('stickyNav');if(sn)sn.style.display='none';
+  const sc=calcAllScores(),ranking=calcMatch();
+  const displayDate=userDate?new Date(userDate).toLocaleDateString('it-IT'):new Date().toLocaleDateString('it-IT');
+  let h='<div class="rp"><div class="ph"><h1>\ud83c\udf93 Report Orientamento Universitario</h1><p>'+(userName||'Utente')+' \u2022 Età: '+(userAge||'—')+' \u2022 '+displayDate+'</p></div>';
+  h+='<div class="tb no-print"><button class="btn btn-p btn-sm" onclick="showHub()">\u2190 Menu</button><button class="btn btn-s btn-sm" onclick="window.print()">\ud83d\udda8 Stampa PDF</button><button class="btn btn-s btn-sm" onclick="saveState()">\ud83d\udcbe JSON</button><button class="btn btn-s btn-sm" onclick="showOpReport()">\ud83d\udc68\u200d\ud83c\udfeb Operatore</button><button class="btn btn-s btn-sm" onclick="exMD()">\ud83d\udcc4 Markdown</button></div>';
+  /* NARRAZIONE GLOBALE */
+  h+='<div class="rc"><h3>\ud83d\udcd6 La tua narrazione</h3><div class="nt">'+genNarrGlobal(sc,ranking)+'</div></div>';
+  /* RANKING */
+  h+='<div class="rc"><h3>\ud83c\udfc6 Ranking Aree Disciplinari</h3>';
+  h+='<p style="font-size:.82em;color:var(--text-sec);margin-bottom:12px">Suggerimenti praticabili basati su interessi, competenze e stile cognitivo emersi dalla compilazione.</p>';
+  ranking.forEach((r,i)=>{
+    const info=areaInfo[r.area];
+    const avail=atenei.filter(a=>a.aree.includes(r.area));
+    h+='<div class="sbc"><div class="sbl"><span>'+(i+1)+'. '+r.area+(i<3?' \u2b50':'')+'</span><span>'+r.pct+'%</span></div><div class="sb"><div class="sbf" style="width:'+r.pct+'%;'+(i<3?'background:linear-gradient(90deg,var(--amber),var(--green))':'')+'">\u200b</div></div></div>';
+    if(i<5&&info){h+='<div style="margin:-4px 0 12px 16px;font-size:.78em;color:var(--text-sec);line-height:1.6"><strong>'+info.desc+'</strong><br>Corsi: '+info.corsi.join(', ')+'<br>Sbocchi: '+info.sbocchi.join(', ')+'<br>Test: '+info.test+' \u2022 Carico: '+info.carico+' \u2022 Stile: '+info.stile+(avail.length?' \u2022 Disponibile in Lombardia/online: '+avail.map(a=>a.nome).join(', '):'')+'</div>'}
+  });
+  h+='</div>';
+  /* Per-section charts */
+  enabledQ.forEach((qi,idx)=>{
+    const q=Q[qi],s=sc[q.id];if(!s)return;
+    h+='<div class="rc"><h3>'+q.icon+' '+q.title+'</h3><div class="cc"><canvas id="ch'+idx+'"></canvas></div>';
+    Object.keys(s).forEach(k=>{const v=s[k];h+='<div class="sbc"><div class="sbl"><span>'+k+(v.neg?' \u26a0':'')+'</span><span>'+v.pct+'%</span></div><div class="sb"><div class="sbf" style="width:'+v.pct+'%;'+(v.neg?'background:linear-gradient(90deg,var(--rose),var(--amber))':'')+'">\u200b</div></div></div>'});
+    h+='<div class="nt">'+genNarr(q.id,s)+'</div></div>';
+  });
+  h+='</div>';
+  app.innerHTML=h;
+  setTimeout(()=>{enabledQ.forEach((qi,idx)=>{
+    const q=Q[qi],s=sc[q.id];if(!s)return;
+    const cv=document.getElementById('ch'+idx);if(!cv)return;
+    const labels=Object.keys(s),data=labels.map(k=>s[k].pct);
+    const colors=labels.map((_,i)=>'hsla('+(((i*360/labels.length)+220)%360)+',65%,55%,.7)');
+    const ch=new Chart(cv,{type:labels.length>5?'radar':'bar',data:{labels,datasets:[{label:q.title,data,backgroundColor:colors,borderColor:colors.map(c=>c.replace('.7)','.9)')),borderWidth:2,fill:labels.length>5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:labels.length>5?{r:{min:0,max:100,ticks:{stepSize:25}}}:{y:{min:0,max:100},x:{ticks:{font:{size:9}}}}}});
+    charts.push(ch);
+  })},250);
+}
+
+/* ===== OPERATOR REPORT ===== */
+function showOpReport(){
+  const sc=calcAllScores(),ranking=calcMatch();
+  const displayDate=userDate?new Date(userDate).toLocaleDateString('it-IT'):new Date().toLocaleString('it-IT');
+  let t='=== REPORT OPERATORE - ORIENTAMENTO UNIVERSITARIO ===\n';
+  t+='Data: '+displayDate+'\nNome: '+(userName||'N/D')+'\nEtà: '+(userAge||'N/D')+'\nSezioni: '+enabledQ.map(i=>Q[i].title).join(', ')+'\n\n';
+  t+='--- ISTRUZIONI PER L\'IA ---\nAnalizza questo profilo per orientamento universitario.\n[R] = scala inversa (alto = negativo). [NEG] = area barriere.\n\n';
+  enabledQ.forEach(qi=>{
+    const q=Q[qi],s=sc[q.id];if(!s)return;
+    t+='=== '+q.title.toUpperCase()+' ===\n'+q.instruction+'\n\nRisposte:\n';
+    q.items.forEach(it=>{const v=(answers[q.id]||{})[it.n];t+='  '+it.n+'. '+it.t+(it.r?' [R]':'')+' => '+(v!==undefined?v:'N/R')+'\n'});
+    t+='\nPunteggi:\n';
+    Object.entries(s).forEach(([k,v])=>{t+='  '+k+(v.neg?' [NEG]':'')+': '+v.sum+'/'+v.max+' ('+v.pct+'%) - '+v.desc+'\n'});
+    t+='\n';
+  });
+  t+='--- RANKING AREE DISCIPLINARI ---\n';
+  ranking.forEach((r,i)=>{t+=(i+1)+'. '+r.area+': '+r.pct+'%\n'});t+='\n';
+  const topA=ranking[0]?.area||'[area]',info=areaInfo[topA]||{};
+  const appSc=sc.apprendimento;
+  t+='=== PROMPT IA PRE-CONFEZIONATI ===\n\n';
+  t+='PROMPT 1 – Approfondimento Profilo:\n"Analizza questo profilo di orientamento universitario.\nArea principale: '+topA+'\nCoping: '+(sc.coping?Object.entries(sc.coping).map(([k,v])=>k+' '+v.pct+'%').join(', '):'N/D')+'\nLocus: '+(sc.locus?Object.entries(sc.locus).map(([k,v])=>k+' '+v.pct+'%').join(', '):'N/D')+'\nStile apprendimento: '+(appSc?Object.entries(appSc).map(([k,v])=>k+' '+v.pct+'%').join(', '):'N/D')+'\nSuggerisci strategie metacognitive e risorse utili per il percorso universitario."\n\n';
+  t+='PROMPT 2 – Corsi Praticabili:\n"Cerca corsi in '+topA+' presso università accessibili dalla Lombardia.\nTest d\'accesso richiesto: '+(info.test||'da verificare')+'\nStile di apprendimento predominante: '+(appSc?Object.entries(appSc).sort((a,b)=>b[1].pct-a[1].pct)[0][0]:'N/D')+'\nPer ogni corso: nome, ateneo, link, requisiti, modalità d\'esame."\n\n';
+  t+='PROMPT 3 – Piano di Sviluppo:\n"Per '+topA+', traccia percorso completo:\n- Triennale consigliata + Magistrale coerente\n- Competenze da sviluppare rispetto al profilo emerso\n- Esperienze extra (tirocini, Erasmus, associazioni)\n- Sbocchi professionali realistici e mercato del lavoro attuale"\n\n';
+  t+='PROMPT 4 – Analisi Completa:\n"Profilo completo studente '+(userName||'N/D')+':\n';
+  enabledQ.forEach(qi=>{const q=Q[qi],s=sc[q.id];if(!s)return;t+=q.title+': '+JSON.stringify(Object.fromEntries(Object.entries(s).map(([k,v])=>[k,v.pct+'%'])))+'\n'});
+  t+='Ranking: '+ranking.slice(0,5).map(r=>r.area+' '+r.pct+'%').join(', ')+'\nAnalizza punti di forza, aree critiche, coerenza tra interessi e competenze. Suggerisci 3 azioni concrete."\n\n';
+  t+='=== FINE ===\nGenera:\n1. Profilo attitudinale e motivazionale\n2. Punti di forza e aree da sviluppare\n3. Coerenza interessi/competenze/stile cognitivo\n4. Percorso universitario consigliato\n5. Strategie metacognitive personalizzate\n6. Suggerimenti operativi per la scelta\n7. Segnali di attenzione\n';
+  $('opT').value=t;$('opM').classList.add('act');
+}
+
+function cpOp(){navigator.clipboard.writeText($('opT').value).then(()=>toast('Copiato! \u2713')).catch(()=>{$('opT').select();document.execCommand('copy');toast('Copiato! \u2713')})}
+function clMo(){$('opM').classList.remove('act')}
+
+/* ===== EXPORT MARKDOWN ===== */
+function exMD(){
+  const sc=calcAllScores(),ranking=calcMatch();
+  let md='# Report Orientamento Universitario\n\n';
+  md+='**Utente:** '+(userName||'N/D')+' | **Data:** '+new Date().toLocaleDateString('it-IT')+'\n\n';
+  md+='## Ranking Aree Disciplinari\n\n';
+  ranking.forEach((r,i)=>{md+=(i+1)+'. **'+r.area+'**: '+r.pct+'%\n'});md+='\n';
+  enabledQ.forEach(qi=>{
+    const q=Q[qi],s=sc[q.id];if(!s)return;
+    md+='## '+q.icon+' '+q.title+'\n\n';
+    Object.entries(s).forEach(([k,v])=>{md+='- **'+k+'**: '+v.pct+'%'+(v.neg?' ⚠':'')+'\n'});
+    md+='\n> '+genNarr(q.id,s).replace(/<[^>]+>/g,'')+'\n\n';
+  });
+  const blob=new Blob([md],{type:'text/markdown'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='orientamento_uni_'+(userName||'utente')+'_'+new Date().toISOString().slice(0,10)+'.md';
+  a.click();toast('Markdown esportato! \u2713');
+}
+
+/* ===== INIT ===== */
+window.addEventListener('scroll',()=>{const h=$('sticky-header');if(!h||h.style.display==='none')return;if(window.scrollY>70)h.classList.add('compact');else h.classList.remove('compact');});
+showWelcome();
+</script></body></html>
